@@ -1,4 +1,4 @@
-package com.mycompany.emojibuilder;
+package com.mycompany.grupo_06;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

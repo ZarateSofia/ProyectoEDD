@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tds;
+package tdas;
 
 /**
  *
@@ -10,36 +10,37 @@ package tds;
  * @param <E>
  */
 public class Node<E> {
-    Node<E> previo;
-    Node<E> siguiente;
+    Node<E> prev;
+    Node<E> next;
     E content;
 
     public Node(E content) {
         this.content = content;
     }
 
-    public Node<E> getPrevio() {
-        return previo;
+    public Node<E> getPrev() {
+        return prev;
     }
 
-    public void setPrevio(Node<E> previo) {
-        this.previo = previo;
+    public void setPrev(Node<E> prev) {
+        this.prev = prev;
     }
 
-    public Node<E> getSiguiente() {
-        return siguiente;
+    public Node<E> getNext() {
+        return next;
     }
 
-    public void setSiguiente(Node<E> siguiente) {
-        this.siguiente = siguiente;
+    public void setNext(Node<E> next) {
+        this.next = next;
     }
 
     public E getContent() {
         return content;
     }
 
-    public void setContent(E contenido) {
-        this.content = contenido;
+    public void setContent(E content) {
+        this.content = content;
     }
+    
     
 }

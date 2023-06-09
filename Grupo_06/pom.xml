@@ -36,7 +36,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>com.mycompany.emojibuilder.App</mainClass>
+                    <mainClass>com.mycompany.grupo_06.App</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -80,5 +80,4 @@
             </plugin>
         </plugins>
     </build>
-    <name>Grupo_06</name>
 </project>
