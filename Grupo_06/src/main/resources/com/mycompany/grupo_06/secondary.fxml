@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#switchToPrimary" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
    <children>
       <StackPane fx:id="panelEmoji" accessibleRole="IMAGE_VIEW" cache="true" layoutX="164.0" layoutY="25.0" onDragDetected="#switchToPrimary" prefHeight="200.0" prefWidth="273.0" />
       <VBox alignment="CENTER" layoutX="506.0" layoutY="80.0" prefHeight="200.0" prefWidth="65.0" spacing="10.0">
@@ -15,8 +15,12 @@
             <Button mnemonicParsing="false" onAction="#switchToPrimary" text="Guardar" />
          </children>
       </VBox>
-      <HBox layoutX="193.0" layoutY="256.0" prefHeight="48.0" prefWidth="215.0" />
-      <HBox layoutX="200.0" layoutY="304.0" prefHeight="48.0" prefWidth="200.0" />
-      <HBox layoutX="200.0" layoutY="387.0" prefHeight="48.0" prefWidth="200.0" />
+      <VBox layoutX="148.0" layoutY="235.0" prefHeight="200.0" prefWidth="306.0" spacing="20.0">
+         <children>
+            <HBox fx:id="listadoCaras" prefHeight="48.0" prefWidth="215.0" spacing="20.0" style="-fx-background-color: black;" />
+            <HBox fx:id="listadoBocas" prefHeight="48.0" prefWidth="215.0" spacing="20.0" style="-fx-background-color: pink;" />
+            <HBox fx:id="listadoOjos" prefHeight="48.0" prefWidth="215.0" spacing="20.0" style="-fx-background-color: red;" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
