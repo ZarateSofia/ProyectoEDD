@@ -5,6 +5,7 @@
 package tdas;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -12,40 +13,34 @@ import java.util.Iterator;
  */
 public class LCD<E> implements List<E> {
     
-    Node<E> first;
+    Node<E> last;
 
     public LCD() {
-        this.first = null;
+        this.last = null;
     }
-    
-    
 
     @Override
-    public void addFirst(E element) {
+    public boolean addLast(E element) {
         if(element == null){
-            return;
+            return false;
         }
+        
         Node<E> nodo = new Node(element);
         
         if(this.isEmpty()){
-            first = nodo;
-            first.setNext(nodo);
-            first.setPrev(nodo);
-        }else{
-            Node<E> last = first.getPrev();
-            nodo.setNext(first);
-            nodo.setPrev(last);
-            
-            first.setPrev(nodo);
+            last = nodo;
             last.setNext(nodo);
+            last.setPrev(nodo);
+        } else{
+            Node<E> lastNode = last.getPrev();
+            nodo.setNext(last);
+            nodo.setPrev(lastNode);
+            lastNode.setNext(nodo);
+            last.setPrev(nodo);
             
-            first = nodo;
         }
-    }
-
-    @Override
-    public void addLast(E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        return true;
     }
 
     @Override
@@ -55,22 +50,76 @@ public class LCD<E> implements List<E> {
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int cont = 0;
+        for(E nodo:this){
+            cont++;
+        }
+        
+        
+        return cont;
     }
 
     @Override
     public boolean isEmpty() {
-        return first == null;
+        return last == null;
     }
 
     @Override
     public E get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        if(index<0 || isEmpty()){
+            throw new IndexOutOfBoundsException();
+        }
+        
+        Node<E> node = last;
+        for(int i=0; i<index;i++){
+            node = node.getNext();
+            if(node == last){
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        
+        return node.getContent();
+    }
+    
+    @Override
+    public String toString(){
+        String mss = "";
+        for(E nodo:this){
+            mss+= " " + nodo +  ",";
+        }
+        
+        return mss;
     }
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Iterator<E> it = new Iterator<E>(){
+            Node<E> cursor = last;
+            
+            @Override
+            public boolean hasNext() { 
+                return cursor != null;
+            }
+
+            @Override
+            public E next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                
+                E e = cursor.getContent();
+                cursor = cursor.getNext();
+                if(cursor == last){
+                    cursor = null;
+                }
+                
+                return e;
+            }
+            
+        };
+        
+        return it;
     }
     
 }

@@ -10,8 +10,7 @@ package tdas;
  * @param <E>
  */
 public interface List<E> extends Iterable<E> {
-    void addFirst(E element);
-    void addLast(E element);
+    boolean addLast(E element);
     void add(int index, E element);
     int size();
     boolean isEmpty();
