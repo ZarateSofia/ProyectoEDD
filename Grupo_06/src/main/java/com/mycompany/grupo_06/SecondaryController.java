@@ -1,8 +1,10 @@
 package com.mycompany.grupo_06;
 
+import Modelos.Seleccionador;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import tdas.LCD;
 
@@ -10,7 +12,7 @@ import tdas.LCD;
 public class SecondaryController {
     
     @FXML
-    StackPane panelEmoji = new StackPane();
+    StackPane panelEmoji;
     @FXML
     Button RandomButton;
     
@@ -22,12 +24,15 @@ public class SecondaryController {
 
     @FXML
     private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
-        LCD<Integer> lista = new LCD();
-        lista.addLast(1);
-        lista.addLast(2);
-        lista.addLast(3);
-        System.out.println(lista.get(0));
+        //App.setRoot("primary");
+        LCD<Image> lista = new LCD();
+//        lista.addLast(1);
+//        lista.addLast(2);
+//        lista.addLast(3);
+        
+        Seleccionador sl = new Seleccionador();
+        sl.seleccionarComponente(lista,panelEmoji);
+
     }
     
     
