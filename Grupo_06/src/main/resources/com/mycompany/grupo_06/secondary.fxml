@@ -2,18 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane accessibleRole="IMAGE_VIEW" cache="true" layoutX="149.0" layoutY="45.0" prefHeight="235.0" prefWidth="303.0" />
+      <StackPane accessibleRole="IMAGE_VIEW" cache="true" layoutX="164.0" layoutY="25.0" prefHeight="200.0" prefWidth="273.0" />
       <VBox alignment="CENTER" layoutX="506.0" layoutY="80.0" prefHeight="200.0" prefWidth="65.0" spacing="10.0">
          <children>
             <Button mnemonicParsing="false" text="Random" />
             <Button mnemonicParsing="false" text="Guardar" />
          </children>
       </VBox>
+      <HBox layoutX="193.0" layoutY="256.0" prefHeight="48.0" prefWidth="215.0" />
+      <HBox layoutX="200.0" layoutY="304.0" prefHeight="48.0" prefWidth="200.0" />
+      <HBox layoutX="200.0" layoutY="387.0" prefHeight="48.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

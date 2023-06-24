@@ -29,4 +29,7 @@ public class SecondaryController {
         lista.addLast(3);
         System.out.println(lista.get(0));
     }
+    
+    
+    
 }
