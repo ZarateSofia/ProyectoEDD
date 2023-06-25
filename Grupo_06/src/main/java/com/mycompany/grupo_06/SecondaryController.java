@@ -21,7 +21,7 @@ import tdas.LCD;
 public class SecondaryController implements Initializable{
     
     @FXML
-    StackPane panelEmoji = new StackPane();
+    StackPane panelEmoji;
     @FXML
     Button RandomButton;
     int imagenMax = 10;
@@ -159,13 +159,18 @@ public class SecondaryController implements Initializable{
         indice++;
         hb.getChildren().clear();
         mostrarPartes(lista, indice, hb);
-        
+
     }
     
     private void prevElement(int indice, LCD<ImageView> lista, HBox hb){
         indice--;
         hb.getChildren().clear();
         mostrarPartes(lista, indice, hb);
+    }
+    
+    private void construirEmoji(){
+        panelEmoji.getChildren().clear();
+        panelEmoji.getChildren().add(Caras.get(indiceCara));
     }
     
     @FXML
