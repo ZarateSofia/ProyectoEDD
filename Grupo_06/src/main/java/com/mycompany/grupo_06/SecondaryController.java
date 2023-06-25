@@ -5,11 +5,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import tdas.LCD;
@@ -35,11 +38,15 @@ public class SecondaryController implements Initializable{
     LCD<ImageView> Bocas=cargarBocas();
     LCD<ImageView> Ojos=cargarOjos();
     
+    int indiceCara = 0;
+    int indiceBoca = 0;
+    int indiceOjos = 0;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mostrarCarasLCD();
-        mostrarOjosLCD();
-        mostrarBocasLCD();
+        mostrarPartes(Caras, indiceCara, listadoCaras);
+        mostrarPartes(Bocas, indiceBoca, listadoBocas);
+        mostrarPartes(Ojos, indiceOjos, listadoOjos);
     }
 
     public LCD<ImageView> cargarCaras(){
@@ -100,42 +107,98 @@ public class SecondaryController implements Initializable{
         return Ojos;
     }
     
-    
-    public void mostrarCarasLCD(){
-        for(ImageView image:Caras){
-            listadoCaras.getChildren().addAll(image);
-        }       
-    } 
-    
-    public void mostrarBocasLCD(){
-        for(ImageView image:Bocas){
-            listadoBocas.getChildren().addAll(image);
-        }       
+    public ImageView generarFlechas(boolean Der, String ruta, int indice, LCD<ImageView> lista, HBox hb){
+        Image img = new Image(ruta, 45, 45, true, false);
+        ImageView iv = new ImageView(img);
+        EventHandler<MouseEvent> evento = new EventHandler(){
+            @Override
+            public void handle(Event t) {
+                if(Der){
+                    nextElement(indice, lista, hb);
+                } else{
+                    prevElement(indice, lista, hb);
+                }   
+            }   
+        };
+        iv.setOnMouseClicked(evento);        
+        return iv;
     }
     
-    public void mostrarOjosLCD(){
-        for(ImageView image:Ojos){
-            listadoOjos.getChildren().addAll(image);
-        }       
+    public void mostrarPartes(LCD<ImageView> lista, int indice, HBox hb){
+        if(indice == lista.size()){
+            indice = 0;
+        } else if (indice == -1){
+            indice = lista.size();
+        }
+        //Flecha Derecha
+        File rutaFile = new File("src/main/resources/source/flechaDer.png") ;
+        String ruta = rutaFile.toURI().toString();
+        ImageView derecha = generarFlechas(true, ruta, indice, lista,hb);
+        
+        //Flecha Izquierda
+        rutaFile = new File("src/main/resources/source/flechaIzq.png");
+        ruta = rutaFile.toURI().toString();
+        ImageView izquierda = generarFlechas(false, ruta, indice, lista, hb);
+        
+        ImageView img1 = lista.getPrevTooElement(indice);
+        ImageView img2 = lista.getPrevElement(indice);
+        ImageView img3 = lista.getNextElement(indice);
+        ImageView img4 = lista.getNextTooElement(indice);
+        ImageView imgPrincipal = lista.get(indice);
+        
+        hb.getChildren().add(izquierda);
+        hb.getChildren().add(img1);
+        hb.getChildren().add(img2);
+        hb.getChildren().add(imgPrincipal);
+        hb.getChildren().add(img3);
+        hb.getChildren().add(img4);
+        hb.getChildren().add(derecha);
+    }
+    
+    private void nextElement(int indice, LCD<ImageView> lista, HBox hb){
+        indice++;
+        hb.getChildren().clear();
+        mostrarPartes(lista, indice, hb);
+        
+    }
+    
+    private void prevElement(int indice, LCD<ImageView> lista, HBox hb){
+        indice--;
+        hb.getChildren().clear();
+        mostrarPartes(lista, indice, hb);
+    }
+    
+    @FXML
+    private void seleccionarCara() throws IOException{
+        Seleccionador sc = new Seleccionador();
+        sc.seleccionarComponente(Caras);
+        listadoCaras.getChildren().clear();
+        mostrarPartes(Caras, indiceCara, listadoCaras);
+    }
+    
+    @FXML
+    private void seleccionarBoca() throws IOException{
+        Seleccionador sc = new Seleccionador();
+        sc.seleccionarComponente(Bocas);
+        listadoBocas.getChildren().clear();
+        mostrarPartes(Bocas, indiceBoca, listadoBocas);
+    }
+    
+    @FXML
+    private void seleccionarOjos() throws IOException{
+        Seleccionador sc = new Seleccionador();
+        sc.seleccionarComponente(Ojos);
+        listadoOjos.getChildren().clear();
+        mostrarPartes(Ojos, indiceOjos, listadoOjos);
     }
     
      @FXML
     private void switchToPrimary() throws IOException {
         //App.setRoot("primary");
-        LCD<Image> lista = new LCD();
-//        lista.addLast(1);
-//        lista.addLast(2);
-//        lista.addLast(3);
+        LCD<Integer> lista = new LCD();
+        lista.get(-1);
         
-        Seleccionador sl = new Seleccionador();
-        sl.seleccionarComponente(lista,panelEmoji);
 
-    }
-    
-    @FXML
-    private void setImage(){
-        System.out.println("UWU");
-        
     }
     
 }

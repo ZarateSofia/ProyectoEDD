@@ -13,10 +13,12 @@ import java.util.NoSuchElementException;
  */
 public class LCD<E> implements List<E> {
     
-    Node<E> last;
+    private Node<E> last;
+    private int indice;
 
     public LCD() {
         this.last = null;
+        this.indice = 0;
     }
 
     @Override
@@ -72,11 +74,13 @@ public class LCD<E> implements List<E> {
         }
         
         Node<E> node = last;
-        for(int i=0; i<index;i++){
+//            if(node == last){
+//                throw new IndexOutOfBoundsException();
+//            }
+        int contador = 0;
+        while(contador != index){
             node = node.getNext();
-            if(node == last){
-                throw new IndexOutOfBoundsException();
-            }
+            contador++;
         }
         
         return node.getContent();
@@ -90,6 +94,40 @@ public class LCD<E> implements List<E> {
         }
         
         return mss;
+    }
+    
+    public E getNextElement(int index){
+        Node<E> node = last;
+        for(int i=0; i<index;i++){
+            node = node.getNext();
+        }
+        return node.getNext().getContent();
+    }
+    
+    public E getPrevElement(int index){
+        Node<E> node = last;
+        for(int i=0; i<index;i++){
+            node = node.getNext();
+        }
+        return node.getPrev().getContent();
+    }
+    
+    public E getPrevTooElement(int index){
+        Node<E> node = last;
+        for(int i=0; i<index;i++){
+            node = node.getNext();
+        }
+        node = node.getPrev();
+        return node.getPrev().getContent();
+    }
+    
+    public E getNextTooElement(int index){
+        Node<E> node = last;
+        for(int i=0; i<index;i++){
+            node = node.getNext();
+        }
+        node = node.getNext();
+        return node.getNext().getContent();
     }
 
     @Override

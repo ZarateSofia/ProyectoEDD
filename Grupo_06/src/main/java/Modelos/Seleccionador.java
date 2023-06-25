@@ -24,20 +24,18 @@ public class Seleccionador {
          fileChooser = new FileChooser();
      }
      
-     public void seleccionarComponente(LCD<Image> lista, StackPane pn){
+     public void seleccionarComponente(LCD<ImageView> lista){
          fileChooser.setTitle("Seleccionar un componente");
          ExtensionFilter extensionFilter = new ExtensionFilter("Archivos PNG", "*.png");
          fileChooser.getExtensionFilters().add(extensionFilter);
          
          File selectedFile = fileChooser.showOpenDialog(App.getScene().getWindow());
          if (selectedFile != null) {
-            // Hacer algo con el archivo seleccionado
-            
             try{
                 System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
-                Image img = new Image(selectedFile.toURI().toString());
+                Image img = new Image(selectedFile.toURI().toString(), 45,45,false,true);
                 ImageView imgv = new ImageView(img);
-                pn.getChildren().add(imgv);
+                lista.addLast(imgv);
             }
             catch(Exception e){
                 System.out.println(e.getMessage());
