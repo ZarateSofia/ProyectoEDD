@@ -205,5 +205,20 @@ public class SecondaryController implements Initializable{
         
 
     }
+    @FXML
+    private void construirEmoji(MouseEvent event){
+        if(event.getSource() == listadoCaras){
+            javafx.scene.Node elementoSeleccionado= listadoCaras.getChildren().get(0);
+            panelEmoji.getChildren().add(elementoSeleccionado);
+            if(event.getSource() == listadoOjos){
+                elementoSeleccionado= listadoOjos.getChildren().get(0);
+                panelEmoji.getChildren().add(elementoSeleccionado);
+                if(event.getSource() == listadoBocas){
+                    elementoSeleccionado= listadoBocas.getChildren().get(0);
+                    panelEmoji.getChildren().add(elementoSeleccionado);
+                }
+            }
+        }
     
+}
 }
