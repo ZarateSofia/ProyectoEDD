@@ -1,12 +1,18 @@
 package com.mycompany.grupo_06;
 
 import Modelos.Usuario;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -31,12 +37,13 @@ public class PrimaryController implements Initializable{
     Button btIniciarSesion;
     @FXML
     Button btCrearCuenta;
-    public ArrayList<Usuario> listaUsuarios=Usuario.CargarUsuarios();
+    ArrayList<Usuario> listaUsuarios;
     @FXML
     VBox panel;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        listaUsuarios=Usuario.CargarUsuarios();
         Image img = new Image("https://fondosmil.com/fondo/31886.jpg");
         BackgroundImage bImg = new BackgroundImage(img,
                                                    BackgroundRepeat.NO_REPEAT,
@@ -45,16 +52,18 @@ public class PrimaryController implements Initializable{
                                                    BackgroundSize.DEFAULT);
         Background bGround = new Background(bImg);
         panel.setBackground(bGround);
+        
     }
     
     @FXML
     private void switchToSecondary() throws IOException {
-          if(ValidarUsuario()==true){ 
+        if(ValidarUsuario()==true){ 
             App.setRoot("secondary");
 
         }else{
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error");
+            alerta.setHeaderText("Error al iniciar sesion");
             alerta.setContentText("Usuario o clave incorrectos");
             Optional<ButtonType> opciones = alerta.showAndWait();
             tfUsuario.clear();
@@ -77,6 +86,57 @@ public class PrimaryController implements Initializable{
         return validar;
         
     }
+    
+    @FXML
+    private void crearUsuario(ActionEvent event) {
+        VBox root=new VBox();
+        TextField nombre=new TextField();
+        nombre.setPromptText("Nombre");
+        TextField apellido=new TextField();
+        apellido.setPromptText("Apellido");
+        TextField usuario=new TextField();
+        usuario.setPromptText("Usuario");
+        TextField contra=new TextField();
+        contra.setPromptText("Clave");
+        Button crear=new Button("Crear cuenta");
+        root.getChildren().addAll(nombre,apellido,usuario,contra,crear);
+        root.setSpacing(25);
+        root.setAlignment(Pos.CENTER);
+        root.setFillWidth(false);
+        root.setPrefSize(473, 372);
+        App.scene.setRoot(root);
+        
+        crear.addEventHandler(ActionEvent.ACTION, (ActionEvent t) -> {
+            if(nombre.getText().equals("") || apellido.getText().equals("")|| usuario.getText().equals("")|| contra.getText().equals("")){
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error");
+                alerta.setHeaderText("Error al crear cuenta");
+                alerta.setContentText("Usuario y/o clave vacíos");
+                alerta.showAndWait();
+            } else {
+                Usuario u=new Usuario(nombre.getText(),apellido.getText(),usuario.getText(),contra.getText());
+                try(BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/files/Usuarios.txt",true))){
+                    String cadena="\n"+nombre.getText()+","+apellido.getText()+","+usuario.getText()+","+contra.getText();
+                    bw.write(cadena);
+                    listaUsuarios.addLast(u);
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Usuario nuevo");
+                alert.setHeaderText("Creacion de usuario");
+                alert.setContentText("Usuario creado con exito");
+                alert.showAndWait();
+                App.scene.setRoot(panel);
+
+            }
+        });
+        
+        
+
+    }
+    
+     
 
     
 }
