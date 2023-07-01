@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class ArrayList<E> implements List<E> {
     private E[] elements;
-    private int MAX_SIZE = 100;
+    private int MAX_SIZE = 4;
     private int effectiveSize;
 
     public ArrayList() {
@@ -22,6 +22,15 @@ public class ArrayList<E> implements List<E> {
         effectiveSize = 0;
     }
 
+    @Override
+    public String toString(){
+        String cadena=" ";
+        for (int i=0; i<effectiveSize;i++){
+            cadena=cadena+elements[i]+",";
+        }
+        return cadena;
+    }
+    
     @Override
     public int size() {
         return effectiveSize;
@@ -79,10 +88,10 @@ public class ArrayList<E> implements List<E> {
             addCapacity();
         }
         //con humildad
-        //elements[effectiveSize] = element;
-        //effectiveSize++;
+        elements[effectiveSize] = element;
+        effectiveSize++;
         // con orgullo
-        elements[effectiveSize++] = element;
+//        elements[effectiveSize++] = element;
         return true;
     }
 
@@ -250,6 +259,20 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Iterator<E> it=new Iterator<>(){
+            int cursor=0;
+            @Override
+            public boolean hasNext(){
+                return cursor<=effectiveSize;
+            }
+
+            @Override
+            public E next() {
+                E e=elements[cursor];
+                cursor++;
+                return e;
+            }
+        };
+        return it;
     }
 }
