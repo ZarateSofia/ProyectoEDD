@@ -58,6 +58,12 @@ public class Emoji {
     }
 
     @Override
+    public String toString() {
+        return "Emoji{" + "id=" + id + '}';
+    }
+    
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

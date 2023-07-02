@@ -2,6 +2,7 @@ package com.mycompany.grupo_06;
 
 import Modelos.Usuario;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +29,8 @@ import javafx.scene.layout.VBox;
 import tdas.ArrayList;
 
 public class PrimaryController implements Initializable{
-
+    
+    static Usuario usuarioPrincipal;
     @FXML
     TextField tfUsuario;
     @FXML
@@ -44,14 +46,18 @@ public class PrimaryController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         listaUsuarios=Usuario.CargarUsuarios();
-        Image img = new Image("https://fondosmil.com/fondo/31886.jpg");
-        BackgroundImage bImg = new BackgroundImage(img,
+        try(FileInputStream input=new FileInputStream("src/main/resources/source/imagenFondo.jpg")){
+            Image image=new Image(input,751, 500,false,false);
+             BackgroundImage bImg = new BackgroundImage(image,
                                                    BackgroundRepeat.NO_REPEAT,
                                                    BackgroundRepeat.NO_REPEAT,
                                                    BackgroundPosition.CENTER,
                                                    BackgroundSize.DEFAULT);
-        Background bGround = new Background(bImg);
-        panel.setBackground(bGround);
+            Background bGround = new Background(bImg);
+            panel.setBackground(bGround);
+        }catch(IOException e){
+            System.out.println("Archivo no encontrado");            
+        }
         
     }
     
@@ -80,9 +86,9 @@ public class PrimaryController implements Initializable{
             Usuario u=listaUsuarios.get(i);
             if(u.getUsuario().equals(usuario) && u.getClave().equals(clave)){
                 validar=true;
+                usuarioPrincipal=u;
             }
         }
-        System.out.println(validar);
         return validar;
         
     }
@@ -131,8 +137,6 @@ public class PrimaryController implements Initializable{
 
             }
         });
-        
-        
 
     }
     
