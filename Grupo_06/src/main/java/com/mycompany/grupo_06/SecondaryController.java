@@ -124,6 +124,88 @@ public class SecondaryController implements Initializable{
         return iv;
     }
     
+    public ImageView generarPartes(LCD<ImageView> lista, int index, int pos){
+        ImageView iv;
+        switch (pos) {
+            case -2:
+                iv = lista.getPrevTooElement(index);
+                break;
+            case -1:
+                iv = lista.getPrevElement(index);
+                break;
+            case 1:
+                iv = lista.getNextElement(index);
+                break;
+            default:
+                iv = lista.getNextTooElement(index);
+                break;
+        }
+        return iv;
+    }
+    
+    public void setIndice(int indice, int x){
+        indice = x;
+    }
+    
+    public int alterarIndice(int indice, int pos, int length){
+        int x = indice + pos;
+        
+        if(x<0){
+            x = length + x;
+            setIndice(indice, x);
+            return x;
+        } else if(x>=length){
+            x = x - length;
+            setIndice(indice, x);
+            return x;
+        }
+        
+        else{
+            setIndice(indice, x);
+            return x;
+        }
+    }
+    
+    public ImageView eventosPartes(int pos, int indice, LCD<ImageView> lista, HBox hb){
+        EventHandler<MouseEvent> evento;
+        ImageView iv = generarPartes(lista, indice, pos);
+        
+        evento = new EventHandler(){
+            
+            public int index;
+            
+            @Override
+            public void handle(Event t) {
+                System.out.println("UwU");
+                int length = lista.size();
+                int x = alterarIndice(indice, pos, length);
+                hb.getChildren().clear();
+                mostrarPartes(lista, x, hb);
+            }
+            
+        };
+        iv.setOnMouseClicked(evento);
+        
+        return iv;
+    }
+    
+    
+    @FXML
+    private void construirEmoji(MouseEvent event){
+        if(event.getSource() == listadoCaras){
+            javafx.scene.Node elementoSeleccionado= listadoCaras.getChildren().get(0);
+            panelEmoji.getChildren().add(elementoSeleccionado);
+            if(event.getSource() == listadoOjos){
+                elementoSeleccionado= listadoOjos.getChildren().get(0);
+                panelEmoji.getChildren().add(elementoSeleccionado);
+                if(event.getSource() == listadoBocas){
+                    elementoSeleccionado= listadoBocas.getChildren().get(0);
+                    panelEmoji.getChildren().add(elementoSeleccionado);
+                }
+            }
+        }
+
+    }
     public void mostrarPartes(LCD<ImageView> lista, int indice, HBox hb){
         if(indice == lista.size()){
             indice = 0;
@@ -140,10 +222,10 @@ public class SecondaryController implements Initializable{
         ruta = rutaFile.toURI().toString();
         ImageView izquierda = generarFlechas(false, ruta, indice, lista, hb);
         
-        ImageView img1 = lista.getPrevTooElement(indice);
-        ImageView img2 = lista.getPrevElement(indice);
-        ImageView img3 = lista.getNextElement(indice);
-        ImageView img4 = lista.getNextTooElement(indice);
+        ImageView img1 = eventosPartes(-2, indice, lista, hb);
+        ImageView img2 = eventosPartes(-1, indice, lista, hb);
+        ImageView img3 = eventosPartes(1, indice, lista, hb);
+        ImageView img4 = eventosPartes(2, indice, lista, hb);
         ImageView imgPrincipal = lista.get(indice);
         
         hb.getChildren().add(izquierda);
@@ -166,6 +248,23 @@ public class SecondaryController implements Initializable{
         indice--;
         hb.getChildren().clear();
         mostrarPartes(lista, indice, hb);
+    }
+    
+    @FXML
+    private void eliminarParte() throws IOException{
+        LCD<Integer> lista = new LCD();
+        lista.addLast(1);
+        lista.addLast(2);
+        lista.addLast(3);
+        lista.addLast(4);
+        lista.addLast(5);
+        
+        lista.remove(1);
+        
+        for(int i=0; i<lista.size(); i++){
+            System.out.println(lista.get(i));
+        }
+        
     }
     
     private void construirEmoji(){
@@ -205,20 +304,5 @@ public class SecondaryController implements Initializable{
         
 
     }
-    @FXML
-    private void construirEmoji(MouseEvent event){
-        if(event.getSource() == listadoCaras){
-            javafx.scene.Node elementoSeleccionado= listadoCaras.getChildren().get(0);
-            panelEmoji.getChildren().add(elementoSeleccionado);
-            if(event.getSource() == listadoOjos){
-                elementoSeleccionado= listadoOjos.getChildren().get(0);
-                panelEmoji.getChildren().add(elementoSeleccionado);
-                if(event.getSource() == listadoBocas){
-                    elementoSeleccionado= listadoBocas.getChildren().get(0);
-                    panelEmoji.getChildren().add(elementoSeleccionado);
-                }
-            }
-        }
     
-}
 }

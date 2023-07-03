@@ -13,7 +13,7 @@
       <StackPane fx:id="panelEmoji" accessibleRole="IMAGE_VIEW" cache="true" layoutX="164.0" layoutY="25.0" onDragDetected="#switchToPrimary" prefHeight="200.0" prefWidth="273.0" />
       <VBox alignment="CENTER" layoutX="506.0" layoutY="80.0" prefHeight="200.0" prefWidth="65.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Random" />
+            <Button mnemonicParsing="false" onAction="#eliminarParte" text="Random" />
             <Button mnemonicParsing="false" onAction="#seleccionarCara" text="Guardar" />
          </children>
       </VBox>

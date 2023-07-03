@@ -14,11 +14,9 @@ import java.util.NoSuchElementException;
 public class LCD<E> implements List<E> {
     
     private Node<E> last;
-    private int indice;
 
     public LCD() {
         this.last = null;
-        this.indice = 0;
     }
 
     @Override
@@ -56,6 +54,10 @@ public class LCD<E> implements List<E> {
         for(E nodo:this){
             cont++;
         }
+//        Node<E> node = last;
+//        while(node){
+//            
+//        }
         
         
         return cont;
@@ -129,6 +131,56 @@ public class LCD<E> implements List<E> {
         node = node.getNext();
         return node.getNext().getContent();
     }
+    
+    //Arreglar este algortimo
+    @Override
+    public E remove(int index) {
+        
+        if(isEmpty()){
+            return null;
+        }
+        
+        E elemento;
+        
+        if(index == 0){
+            if(last.getNext() == null){
+                elemento = last.getContent();
+                last = null;
+            }else{
+                Node<E> lastNode = last.getPrev();
+                Node<E> nextNode = last.getNext();
+                
+                elemento = last.getContent();
+                nextNode.setPrev(lastNode);
+                lastNode.setNext(nextNode);
+                last = nextNode;
+            }
+        } else if(index > 0){
+            Node<E> nodoEliminar = last;
+            int cont = 0;
+            while(cont < index){
+                nodoEliminar = nodoEliminar.getNext();
+                cont++;
+                if(nodoEliminar == last){
+                    return null; //Indice Invalido
+                }
+            }
+           
+            elemento = nodoEliminar.getContent();
+            Node<E> lastNode = nodoEliminar.getPrev();
+            Node<E> nextNode = nodoEliminar.getNext();
+            
+            lastNode.setNext(nextNode);
+            nextNode.setPrev(lastNode);
+            nodoEliminar = nextNode;
+            
+        } else{
+            elemento = null;
+        }
+        
+        
+        return elemento;
+    }
 
     @Override
     public Iterator<E> iterator() {
@@ -159,5 +211,7 @@ public class LCD<E> implements List<E> {
         
         return it;
     }
+
+
     
 }
