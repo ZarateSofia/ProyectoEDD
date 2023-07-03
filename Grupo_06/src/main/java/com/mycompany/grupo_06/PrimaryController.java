@@ -64,7 +64,7 @@ public class PrimaryController implements Initializable{
     @FXML
     private void switchToSecondary() throws IOException {
         if(ValidarUsuario()==true){ 
-            App.setRoot("secondary");
+            App.setRoot("Bienvenida");
 
         }else{
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -140,7 +140,9 @@ public class PrimaryController implements Initializable{
 
     }
     
-     
+    public static Usuario devolverUsuario(){
+        return usuarioPrincipal;
+    }
 
     
 }

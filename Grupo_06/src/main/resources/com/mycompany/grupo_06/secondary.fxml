@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#switchToPrimary" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#switchToPrimary" prefHeight="500.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
    <children>
       <StackPane fx:id="panelEmoji" accessibleRole="IMAGE_VIEW" cache="true" layoutX="164.0" layoutY="25.0" onDragDetected="#switchToPrimary" prefHeight="200.0" prefWidth="273.0" />
       <VBox alignment="CENTER" layoutX="506.0" layoutY="80.0" prefHeight="200.0" prefWidth="65.0" spacing="10.0">

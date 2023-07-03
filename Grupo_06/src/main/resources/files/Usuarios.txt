@@ -1,6 +1,3 @@
 Sofia,Zarate,szarate,contra
 Angello,Bravo,abravo,contra2
 Pedro,Luna,pluna,contra3
-Sol,s,s,s
-S,Z,s,z
-s,s,s,s
