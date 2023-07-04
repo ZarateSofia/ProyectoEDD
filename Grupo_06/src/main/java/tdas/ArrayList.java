@@ -4,6 +4,7 @@
  */
 package tdas;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ import java.util.Random;
  *
  * @author DELL
  */
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> implements List<E>, Serializable {
     private E[] elements;
     private int MAX_SIZE = 4;
     private int effectiveSize;

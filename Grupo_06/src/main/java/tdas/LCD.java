@@ -54,11 +54,6 @@ public class LCD<E> implements List<E> {
         for(E nodo:this){
             cont++;
         }
-//        Node<E> node = last;
-//        while(node){
-//            
-//        }
-        
         
         return cont;
     }
@@ -76,9 +71,7 @@ public class LCD<E> implements List<E> {
         }
         
         Node<E> node = last;
-//            if(node == last){
-//                throw new IndexOutOfBoundsException();
-//            }
+
         int contador = 0;
         while(contador != index){
             node = node.getNext();

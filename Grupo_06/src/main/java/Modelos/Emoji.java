@@ -16,11 +16,11 @@ public class Emoji {
     private ImageView ojos;
     private ImageView boca;
 
-    public Emoji(ImageView cuerpo, ImageView ojos, ImageView boca, int id) {
-        this.id = id;
-        this.cuerpo = cuerpo;
-        this.ojos = ojos;
-        this.boca = boca;
+    public Emoji() {
+        this.id = 2;
+        this.cuerpo = new ImageView();
+        this.ojos = new ImageView();
+        this.boca = new ImageView();
     }
 
     public int getId() {
@@ -76,6 +76,31 @@ public class Emoji {
         }
         final Emoji other = (Emoji) obj;
         return this.id == other.id;
+    }
+    
+    public void settearPartes(ImageView img, int parte){
+        ImageView nimg = new ImageView();
+        switch (parte) {
+            case 1:
+                nimg.setImage(img.getImage());
+                setCuerpo(nimg);
+                cuerpo.setFitWidth(90);
+                cuerpo.setFitHeight(90);
+                cuerpo.setSmooth(true);
+                break;
+            case 2:
+                nimg.setImage(img.getImage());
+                setBoca(nimg);
+                boca.setSmooth(true);
+                break;
+            default:
+                nimg.setImage(img.getImage());
+                setOjos(nimg);
+                ojos.setFitWidth(70);
+                ojos.setFitHeight(70);
+                ojos.setSmooth(true);
+                break;
+        }
     }
     
 }

@@ -80,37 +80,53 @@ public class Usuario implements Serializable{
         return usuario+","+clave+","+listaEmojis;
     }
 //
-    public static ArrayList<Usuario> CargarUsuarios(){
-        ArrayList<Usuario> listaUsuarios=new ArrayList<>();
-        try(BufferedReader bf=new BufferedReader(new FileReader("src/main/resources/files/Usuarios.txt"))){
-        String linea= bf.readLine();
-            while(linea!=null){
-                String datos[]=linea.strip().split(",");
-                Usuario u=new Usuario(datos[0],datos[1],datos[2],datos[3]);
-                listaUsuarios.addLast(u);
-                linea=bf.readLine();
-            }
-        }catch(IOException e){
-            System.out.println("Archivo no encontrado");
+//    public static ArrayList<Usuario> CargarUsuarios(){
+//        ArrayList<Usuario> listaUsuarios=new ArrayList<>();
+//        try(BufferedReader bf=new BufferedReader(new FileReader("src/main/resources/files/Usuarios.txt"))){
+//        String linea= bf.readLine();
+//            while(linea!=null){
+//                String datos[]=linea.strip().split(",");
+//                Usuario u=new Usuario(datos[0],datos[1],datos[2],datos[3]);
+//                listaUsuarios.addLast(u);
+//                linea=bf.readLine();
+//            }
+//        }catch(IOException e){
+//            System.out.println("Archivo no encontrado");
+//        }
+//        System.out.println(listaUsuarios);
+//        return listaUsuarios;   
+//    }
+    
+    
+    public static ArrayList<Usuario> leerListaSerializada() {
+        ArrayList<Usuario> listaUsuarios = new ArrayList();
+        
+        
+        try(ObjectInputStream objinput=new ObjectInputStream(new FileInputStream("usuarios.ser"));){
+            listaUsuarios=(ArrayList<Usuario>)objinput.readObject();
+            System.out.println(listaUsuarios);
+        }catch (FileNotFoundException ex1) {
+            System.out.println("No se encontro el archivo");
+        }catch (IOException ex2) {
+            ex2.printStackTrace();
+        }catch (ClassNotFoundException ex3) {
+            ex3.printStackTrace();
         }
-        System.out.println(listaUsuarios);
-        return listaUsuarios;   
+        return listaUsuarios;
+    
     }
     
+    public static void escribirLista(ArrayList<Usuario> lista){
+        try{
+            FileOutputStream fos = new FileOutputStream("usuarios.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(lista);
+            oos.flush();
+            oos.close();
+            fos.close();
+        } catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
     
-//    public static ArrayList<Usuario> leerListaSerializada() {
-//        ArrayList<Usuario> listaUsuarios=null;
-//        try(ObjectInputStream objinput=new ObjectInputStream(new FileInputStream("src/main/resources/files/ListaSerializada"));){
-//            listaUsuarios=(ArrayList<Usuario>)objinput.readObject();
-////            System.out.println(listaUsuarios);
-//        }catch (FileNotFoundException ex1) {
-//            System.out.println("No se encontro el archivo");
-//        }catch (IOException ex2) {
-//            ex2.printStackTrace();
-//        }catch (ClassNotFoundException ex3) {
-//            ex3.printStackTrace();
-//        }
-//        return listaUsuarios;
-//    
-//    }
 }

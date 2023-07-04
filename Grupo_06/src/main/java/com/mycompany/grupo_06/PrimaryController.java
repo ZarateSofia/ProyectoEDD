@@ -45,7 +45,7 @@ public class PrimaryController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        listaUsuarios=Usuario.CargarUsuarios();
+        listaUsuarios=Usuario.leerListaSerializada();
         try(FileInputStream input=new FileInputStream("src/main/resources/source/imagenFondo.jpg")){
             Image image=new Image(input,751, 500,false,false);
              BackgroundImage bImg = new BackgroundImage(image,
@@ -125,6 +125,7 @@ public class PrimaryController implements Initializable{
                     String cadena="\n"+nombre.getText()+","+apellido.getText()+","+usuario.getText()+","+contra.getText();
                     bw.write(cadena);
                     listaUsuarios.addLast(u);
+                    Usuario.escribirLista(listaUsuarios);
                 }catch(Exception e){
                     System.out.println(e.getMessage());
                 }
