@@ -1,5 +1,6 @@
 package com.mycompany.grupo_06;
 
+import Modelos.Alerta;
 import Modelos.Usuario;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -65,17 +66,11 @@ public class PrimaryController implements Initializable{
     private void switchToSecondary() throws IOException {
         if(ValidarUsuario()==true){ 
             App.setRoot("Bienvenida");
-
         }else{
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText("Error al iniciar sesion");
-            alerta.setContentText("Usuario o clave incorrectos");
-            Optional<ButtonType> opciones = alerta.showAndWait();
+            Alerta.errorIniciarSesion();
             tfUsuario.clear();
             tfClave.clear();
-        }
-        
+        }       
     }
     
     public boolean ValidarUsuario() {
@@ -114,11 +109,7 @@ public class PrimaryController implements Initializable{
         
         crear.addEventHandler(ActionEvent.ACTION, (ActionEvent t) -> {
             if(nombre.getText().equals("") || apellido.getText().equals("")|| usuario.getText().equals("")|| contra.getText().equals("")){
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error");
-                alerta.setHeaderText("Error al crear cuenta");
-                alerta.setContentText("Usuario y/o clave vacíos");
-                alerta.showAndWait();
+                Alerta.hayAlgoVacio();
             } else {
                 Usuario u=new Usuario(nombre.getText(),apellido.getText(),usuario.getText(),contra.getText());
                 try(BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/files/Usuarios.txt",true))){
@@ -129,11 +120,7 @@ public class PrimaryController implements Initializable{
                 }catch(Exception e){
                     System.out.println(e.getMessage());
                 }
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Usuario nuevo");
-                alert.setHeaderText("Creacion de usuario");
-                alert.setContentText("Usuario creado con exito");
-                alert.showAndWait();
+                Alerta.creacionCuentaExitoso();
                 App.scene.setRoot(panel);
 
             }

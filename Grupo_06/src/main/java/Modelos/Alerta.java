@@ -4,10 +4,38 @@
  */
 package Modelos;
 
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 /**
  *
  * @author USER
  */
 public class Alerta {
     
+    public static void errorIniciarSesion(){
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText("Error al iniciar sesion");
+        alerta.setContentText("Usuario o clave incorrectos");
+        Optional<ButtonType> opciones = alerta.showAndWait();
+    
+    }
+    
+    public static void creacionCuentaExitoso(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Usuario nuevo");
+        alert.setHeaderText("Creacion de usuario");
+        alert.setContentText("Usuario creado con exito");
+        alert.showAndWait();
+    }
+    
+    public static void hayAlgoVacio(){
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText("Error al crear cuenta");
+        alerta.setContentText("Alguno de los parametros se encuentra vacío");
+        alerta.showAndWait();
+    }
 }
