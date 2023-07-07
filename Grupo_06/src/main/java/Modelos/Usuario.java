@@ -4,11 +4,9 @@
  */
 package Modelos;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -74,34 +72,18 @@ public class Usuario implements Serializable{
         this.listaEmojis = listaEmojis;
     }
     
-
+    public void agregarEmoji(Emoji em){
+        listaEmojis.addLast(em);
+    }
+    
     @Override
     public String toString() {
         return usuario+","+clave+","+listaEmojis;
     }
-//
-//    public static ArrayList<Usuario> CargarUsuarios(){
-//        ArrayList<Usuario> listaUsuarios=new ArrayList<>();
-//        try(BufferedReader bf=new BufferedReader(new FileReader("src/main/resources/files/Usuarios.txt"))){
-//        String linea= bf.readLine();
-//            while(linea!=null){
-//                String datos[]=linea.strip().split(",");
-//                Usuario u=new Usuario(datos[0],datos[1],datos[2],datos[3]);
-//                listaUsuarios.addLast(u);
-//                linea=bf.readLine();
-//            }
-//        }catch(IOException e){
-//            System.out.println("Archivo no encontrado");
-//        }
-//        System.out.println(listaUsuarios);
-//        return listaUsuarios;   
-//    }
     
     
     public static ArrayList<Usuario> leerListaSerializada() {
         ArrayList<Usuario> listaUsuarios = new ArrayList();
-        
-        
         try(ObjectInputStream objinput=new ObjectInputStream(new FileInputStream("usuarios.ser"));){
             listaUsuarios=(ArrayList<Usuario>)objinput.readObject();
             System.out.println(listaUsuarios);

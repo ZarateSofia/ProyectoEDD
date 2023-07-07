@@ -2,6 +2,7 @@ package com.mycompany.grupo_06;
 
 import Modelos.Emoji;
 import Modelos.Seleccionador;
+import Modelos.Usuario;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +36,9 @@ public class SecondaryController implements Initializable{
     
     
     
-    LCD<ImageView> Caras=cargarCaras();
-    LCD<ImageView> Bocas=cargarBocas();
-    LCD<ImageView> Ojos=cargarOjos();
+    LCD<ImageView> Caras;
+    LCD<ImageView> Bocas;
+    LCD<ImageView> Ojos;
     
     Emoji emoji;
     
@@ -47,7 +48,9 @@ public class SecondaryController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Caras = cargarCaras();
+        Bocas = cargarBocas();
+        Ojos = cargarOjos();
         emoji = new Emoji();
         
         mostrarPartes(Caras, indiceCara, listadoCaras, 1);
@@ -197,12 +200,18 @@ public class SecondaryController implements Initializable{
     
     private void construirEmoji(){
         panelEmoji.getChildren().clear();
-        panelEmoji.getChildren().add(emoji.getCuerpo());
-        panelEmoji.getChildren().add(emoji.getBoca());
-        panelEmoji.getChildren().add(emoji.getOjos());
         
-        emoji.getOjos().setTranslateY(-10);
-        emoji.getBoca().setTranslateY(15);
+        ImageView ivCuerpo = emoji.setImageCuerpo();
+        ImageView ivBoca = emoji.setImageBoca();
+        ImageView ivOjos = emoji.setImageOjos();
+        
+        ivOjos.setTranslateY(-10);
+        ivBoca.setTranslateY(15);
+        
+        panelEmoji.getChildren().add(ivCuerpo);
+        panelEmoji.getChildren().add(ivBoca);
+        panelEmoji.getChildren().add(ivOjos);
+        
         
     }
     
@@ -253,7 +262,7 @@ public class SecondaryController implements Initializable{
         hb.getChildren().add(img4);
         hb.getChildren().add(derecha);
         
-        emoji.settearPartes(imgPrincipal, parte);
+        emoji.settearPartes(imgPrincipal.getImage().getUrl(), parte);
         construirEmoji();
     }
     
@@ -281,6 +290,14 @@ public class SecondaryController implements Initializable{
         //mostrarPartes(Caras, indiceCara, listadoCaras);
         
     }
+    
+    @FXML
+    private void guardarEmoji() throws IOException{
+        Usuario u = PrimaryController.devolverUsuario();
+        u.agregarEmoji(emoji);
+        Usuario.escribirLista(PrimaryController.listaUsuarios);
+    }
+    
     
     @FXML
     private void seleccionarCara() throws IOException{
@@ -311,8 +328,6 @@ public class SecondaryController implements Initializable{
         //App.setRoot("primary");
         LCD<Integer> lista = new LCD();
         lista.get(-1);
-        
-
     }
     
 }

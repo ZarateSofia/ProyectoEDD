@@ -40,7 +40,7 @@ public class PrimaryController implements Initializable{
     Button btIniciarSesion;
     @FXML
     Button btCrearCuenta;
-    ArrayList<Usuario> listaUsuarios;
+    static ArrayList<Usuario> listaUsuarios;
     @FXML
     VBox panel;
     

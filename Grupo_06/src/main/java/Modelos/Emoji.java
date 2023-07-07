@@ -4,50 +4,52 @@
  */
 package Modelos;
 
+import java.io.Serializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
  *
  * @author USER
  */
-public class Emoji {
+public class Emoji implements Serializable{
     private final int id;
-    private ImageView cuerpo;
-    private ImageView ojos;
-    private ImageView boca;
+    private String cuerpo;
+    private String ojos;
+    private String boca;
 
     public Emoji() {
         this.id = 2;
-        this.cuerpo = new ImageView();
-        this.ojos = new ImageView();
-        this.boca = new ImageView();
+        this.cuerpo = null;
+        this.ojos = null;
+        this.boca = null;
     }
 
     public int getId() {
         return id;
     }
 
-    public ImageView getCuerpo() {
+    public String getCuerpo() {
         return cuerpo;
     }
 
-    public void setCuerpo(ImageView cuerpo) {
+    public void setCuerpo(String cuerpo) {
         this.cuerpo = cuerpo;
     }
 
-    public ImageView getOjos() {
+    public String getOjos() {
         return ojos;
     }
 
-    public void setOjos(ImageView ojos) {
+    public void setOjos(String ojos) {
         this.ojos = ojos;
     }
 
-    public ImageView getBoca() {
+    public String getBoca() {
         return boca;
     }
 
-    public void setBoca(ImageView boca) {
+    public void setBoca(String boca) {
         this.boca = boca;
     }
 
@@ -78,29 +80,51 @@ public class Emoji {
         return this.id == other.id;
     }
     
-    public void settearPartes(ImageView img, int parte){
-        ImageView nimg = new ImageView();
+    public void settearPartes(String img, int parte){
         switch (parte) {
             case 1:
-                nimg.setImage(img.getImage());
-                setCuerpo(nimg);
-                cuerpo.setFitWidth(90);
-                cuerpo.setFitHeight(90);
-                cuerpo.setSmooth(true);
+                setCuerpo(img);
                 break;
             case 2:
-                nimg.setImage(img.getImage());
-                setBoca(nimg);
-                boca.setSmooth(true);
+                setBoca(img);
                 break;
             default:
-                nimg.setImage(img.getImage());
-                setOjos(nimg);
-                ojos.setFitWidth(70);
-                ojos.setFitHeight(70);
-                ojos.setSmooth(true);
+                setOjos(img);
                 break;
         }
     }
     
+    public ImageView setImageCuerpo(){
+        Image imagen = new Image(cuerpo);
+        ImageView img = new ImageView(imagen);
+        img.setFitWidth(110);
+        img.setFitHeight(110);
+        return img;
+    }
+    
+    public ImageView setImageOjos(){
+        ImageView img = new ImageView();
+        
+        if(ojos != null){
+            Image imagen = new Image(ojos);
+            img.setImage(imagen);
+            img.setFitWidth(60);
+            img.setFitHeight(60);
+            return img;
+        }
+        return img;
+    }
+    
+    public ImageView setImageBoca(){
+        ImageView img = new ImageView();
+        
+        if(boca != null){
+            Image imagen = new Image(boca);
+            img.setImage(imagen);
+            img.setFitWidth(50);
+            img.setFitHeight(50);
+            return img;
+        }
+        return img;
+    }
 }
