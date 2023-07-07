@@ -5,6 +5,7 @@
 package Modelos;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -13,19 +14,19 @@ import javafx.scene.image.ImageView;
  * @author USER
  */
 public class Emoji implements Serializable{
-    private final int id;
+    private final UUID id;
     private String cuerpo;
     private String ojos;
     private String boca;
 
     public Emoji() {
-        this.id = 2;
+        this.id = UUID.randomUUID();
         this.cuerpo = null;
         this.ojos = null;
         this.boca = null;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -95,10 +96,14 @@ public class Emoji implements Serializable{
     }
     
     public ImageView setImageCuerpo(){
-        Image imagen = new Image(cuerpo);
-        ImageView img = new ImageView(imagen);
-        img.setFitWidth(110);
-        img.setFitHeight(110);
+        ImageView img = new ImageView();
+        if(cuerpo != null){
+            Image imagen = new Image(cuerpo);
+            img.setImage(imagen);
+            img.setFitWidth(110);
+            img.setFitHeight(110);
+        }
+        
         return img;
     }
     

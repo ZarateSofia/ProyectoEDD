@@ -4,17 +4,26 @@
  */
 package com.mycompany.grupo_06;
 
+import Modelos.Emoji;
 import Modelos.Usuario;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 /**
  * FXML Controller class
  *
@@ -29,6 +38,8 @@ public class BienvenidaController implements Initializable {
     Button btCrearEmoji;
     @FXML
     ImageView imgv;
+    @FXML
+    ScrollPane panelHistorial;
 
     /**
      * Initializes the controller class.
@@ -43,6 +54,8 @@ public class BienvenidaController implements Initializable {
         }catch(IOException e){
             System.out.println("Archivo no encontrado");            
         }
+        
+        generarHistorial(u);
     }
     
     @FXML
@@ -50,5 +63,48 @@ public class BienvenidaController implements Initializable {
         App.setRoot("secondary");
     }
     
+    private void generarHistorial(Usuario usuario){
+        HBox hb = new HBox();
+        VBox vb = new VBox();
+        int cont = 0;
+        
+        hb.setSpacing(30);
+        hb.setAlignment(Pos.CENTER_LEFT);
+        vb.setSpacing(20);
+        
+        
+        for(Map.Entry<UUID, Emoji> uwu: usuario.getListaEmojis().entrySet()){
+            System.out.println("Clave:  "+ uwu.getKey() + " Valor: " + uwu.getValue().getCuerpo());
+            StackPane panel = new StackPane();
+            UUID id = uwu.getKey();
+            Emoji em = usuario.getListaEmojis().get(id);
+            ImageView ivCuerpo = em.setImageCuerpo();
+            ImageView ivBoca = em.setImageBoca();
+            ImageView ivOjos = em.setImageOjos();
+            
+            ivOjos.setTranslateY(-10);
+            ivBoca.setTranslateY(15);
+            panel.getChildren().add(ivCuerpo);
+            panel.getChildren().add(ivBoca);
+            panel.getChildren().add(ivOjos);
+            hb.getChildren().add(panel);
+            
+            cont++;
+            
+            if(cont == 4){
+                cont = 0;
+                vb.getChildren().add(hb);
+                hb = new HBox();
+                hb.setSpacing(30);
+                hb.setAlignment(Pos.CENTER_LEFT);
+            }
+        }
+        
+        if(!hb.getChildren().isEmpty()){
+            vb.getChildren().add(hb);
+        }
+        panelHistorial.setContent(vb);
+        
+      }
     
 }

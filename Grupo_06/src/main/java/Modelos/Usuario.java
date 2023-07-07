@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 import tdas.ArrayList;
 
 /**
@@ -22,15 +25,30 @@ public class Usuario implements Serializable{
     private String apellido;
     private String usuario;
     private String clave;
-    private ArrayList<Emoji> listaEmojis;
+    private Map<UUID, Emoji> listaEmojis;
+    //private ArrayList<UUID> listaID;
 
     public Usuario(String nombre, String apellido,String usuario, String clave) {
         this.nombre=nombre;
         this.apellido=apellido;
         this.usuario = usuario;
         this.clave = clave;
-        this.listaEmojis=new ArrayList();
+        this.listaEmojis=new LinkedHashMap();
+        //this.listaID = new ArrayList();
     }
+
+    public Map<UUID, Emoji> getListaEmojis() {
+        return listaEmojis;
+    }
+
+    public void setListaEmojis(Map<UUID, Emoji> listaEmojis) {
+        this.listaEmojis = listaEmojis;
+    }
+
+//    public ArrayList<UUID> getListaID() {
+//        return listaID;
+//    }
+    
 
     public String getNombre() {
         return nombre;
@@ -63,17 +81,10 @@ public class Usuario implements Serializable{
     public void setClave(String clave) {
         this.clave = clave;
     }
-
-    public ArrayList<Emoji> getListaEmojis() {
-        return listaEmojis;
-    }
-
-    public void setListaEmojis(ArrayList<Emoji> listaEmojis) {
-        this.listaEmojis = listaEmojis;
-    }
     
     public void agregarEmoji(Emoji em){
-        listaEmojis.addLast(em);
+        //listaID.addLast(em.getId());
+        listaEmojis.put(em.getId(), em);
     }
     
     @Override
