@@ -21,9 +21,9 @@ public class Emoji implements Serializable{
 
     public Emoji() {
         this.id = UUID.randomUUID();
-        this.cuerpo = null;
-        this.ojos = null;
-        this.boca = null;
+        this.cuerpo = "";
+        this.ojos = "";
+        this.boca = "";
     }
 
     public UUID getId() {
@@ -97,7 +97,7 @@ public class Emoji implements Serializable{
     
     public ImageView setImageCuerpo(){
         ImageView img = new ImageView();
-        if(cuerpo != null){
+        if(!cuerpo.equals("")){
             Image imagen = new Image(cuerpo);
             img.setImage(imagen);
             img.setFitWidth(110);
@@ -110,7 +110,7 @@ public class Emoji implements Serializable{
     public ImageView setImageOjos(){
         ImageView img = new ImageView();
         
-        if(ojos != null){
+        if(!ojos.equals("")){
             Image imagen = new Image(ojos);
             img.setImage(imagen);
             img.setFitWidth(60);
@@ -123,7 +123,7 @@ public class Emoji implements Serializable{
     public ImageView setImageBoca(){
         ImageView img = new ImageView();
         
-        if(boca != null){
+        if(!boca.equals("")){
             Image imagen = new Image(boca);
             img.setImage(imagen);
             img.setFitWidth(50);

@@ -31,7 +31,7 @@ import javafx.scene.layout.VBox;
 public class BienvenidaController implements Initializable {
     
     Usuario u=PrimaryController.devolverUsuario();
-    static Emoji emoji = new Emoji();
+    static Emoji emoji;
     @FXML
     Label lbBienvenida;
     @FXML
@@ -54,7 +54,7 @@ public class BienvenidaController implements Initializable {
         }catch(IOException e){
             System.out.println("Archivo no encontrado");            
         }
-        
+        emoji = new Emoji();
         generarHistorial(u);
     }
     
@@ -119,7 +119,12 @@ public class BienvenidaController implements Initializable {
       }
     
     public static Emoji devolverEmoji(){
-        return emoji;
+        if(emoji == null){
+            return new Emoji();
+        }else{
+            return emoji;
+        }
+        
     }
     
 }

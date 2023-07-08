@@ -253,6 +253,7 @@ public class SecondaryController implements Initializable{
         hb.getChildren().add(img4);
         hb.getChildren().add(derecha);
         
+        actualizarIndices(parte, indice);
         emoji.settearPartes(imgPrincipal.getImage().getUrl(), parte);
         construirEmoji();
     }
@@ -287,22 +288,36 @@ public class SecondaryController implements Initializable{
     private void actualizarIndices(int parte, int cantidad){
         switch (parte) {
             case 1:
+                indiceCara = cantidad;
                 break;
             case 2:
+                indiceBoca = cantidad;
                 break;
             default:
+                indiceOjos = cantidad;
                 break;
         }
     }
    
     
     @FXML
-    private void eliminarParte() throws IOException{
-        System.out.println("Metodo Eliminar Parte: "+indiceCara);
-        //Caras.remove(indiceCara);
-//        indiceCara = 0;
-//        listadoCaras.getChildren().clear();
-        //mostrarPartes(Caras, indiceCara, listadoCaras);
+    private void eliminarParteCuerpo() throws IOException{
+        Caras.remove(indiceCara);
+        indiceCara = 0;
+        listadoCaras.getChildren().clear();
+        mostrarPartes(Caras, indiceCara, listadoCaras, 1);
+    }
+    
+    @FXML
+    private void eliminarParteBoca() throws IOException{
+        Bocas.remove(indiceBoca);
+        indiceBoca = 0;
+        listadoBocas.getChildren().clear();
+        mostrarPartes(Bocas, indiceBoca, listadoBocas, 2);
+    }
+    
+    @FXML
+    private void eliminarParteOjos() throws IOException{
         
     }
     
