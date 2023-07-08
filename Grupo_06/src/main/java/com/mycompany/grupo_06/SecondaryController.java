@@ -6,6 +6,7 @@ import Modelos.Usuario;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -48,10 +49,13 @@ public class SecondaryController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        indiceCara = 0;
+        indiceBoca = 0;
+        indiceOjos = 0;
         Caras = cargarCaras();
         Bocas = cargarBocas();
         Ojos = cargarOjos();
-        emoji = new Emoji();
+        emoji = BienvenidaController.devolverEmoji();
         
         mostrarPartes(Caras, indiceCara, listadoCaras, 1);
         mostrarPartes(Bocas, indiceBoca, listadoBocas, 2);
@@ -214,23 +218,6 @@ public class SecondaryController implements Initializable{
         
         
     }
-    
-//    @FXML
-//    private void construirEmoji(MouseEvent event){
-//        if(event.getSource() == listadoCaras){
-//            javafx.scene.Node elementoSeleccionado= listadoCaras.getChildren().get(0);
-//            panelEmoji.getChildren().add(elementoSeleccionado);
-//            if(event.getSource() == listadoOjos){
-//                elementoSeleccionado= listadoOjos.getChildren().get(0);
-//                panelEmoji.getChildren().add(elementoSeleccionado);
-//                if(event.getSource() == listadoBocas){
-//                    elementoSeleccionado= listadoBocas.getChildren().get(0);
-//                    panelEmoji.getChildren().add(elementoSeleccionado);
-//                }
-//            }
-//        }
-//
-//    }
     public void mostrarPartes(LCD<ImageView> lista, int indice, HBox hb, int parte){
         if(indice == lista.size()){
             indice = 0;
@@ -281,6 +268,8 @@ public class SecondaryController implements Initializable{
         System.out.println("PrevElement: " + indiceCara);
     }
     
+   
+    
     @FXML
     private void eliminarParte() throws IOException{
         System.out.println("Metodo Eliminar Parte: "+indiceCara);
@@ -296,6 +285,23 @@ public class SecondaryController implements Initializable{
         Usuario u = PrimaryController.devolverUsuario();
         u.agregarEmoji(emoji);
         Usuario.escribirLista(PrimaryController.listaUsuarios);
+        App.setRoot("Bienvenida");
+    }
+    
+    @FXML
+    private void emojiRandom() throws IOException{
+        Random rand = new Random();
+        indiceCara = rand.nextInt(Caras.size());
+        indiceBoca = rand.nextInt(Bocas.size());
+        indiceOjos = rand.nextInt(Ojos.size());
+        
+        listadoCaras.getChildren().clear();
+        listadoBocas.getChildren().clear();
+        listadoOjos.getChildren().clear();
+        
+        mostrarPartes(Caras, indiceCara, listadoCaras, 1);
+        mostrarPartes(Bocas, indiceBoca, listadoBocas, 2);
+        mostrarPartes(Ojos, indiceOjos, listadoOjos, 3);
     }
     
     

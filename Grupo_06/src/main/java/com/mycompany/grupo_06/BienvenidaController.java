@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,6 +31,7 @@ import javafx.scene.layout.VBox;
 public class BienvenidaController implements Initializable {
     
     Usuario u=PrimaryController.devolverUsuario();
+    static Emoji emoji = new Emoji();
     @FXML
     Label lbBienvenida;
     @FXML
@@ -87,6 +87,17 @@ public class BienvenidaController implements Initializable {
             panel.getChildren().add(ivCuerpo);
             panel.getChildren().add(ivBoca);
             panel.getChildren().add(ivOjos);
+            
+            panel.setOnMouseClicked(e -> {
+                
+                try {
+                    emoji = em;
+                    App.setRoot("secondary");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            
             hb.getChildren().add(panel);
             
             cont++;
@@ -106,5 +117,9 @@ public class BienvenidaController implements Initializable {
         panelHistorial.setContent(vb);
         
       }
+    
+    public static Emoji devolverEmoji(){
+        return emoji;
+    }
     
 }
