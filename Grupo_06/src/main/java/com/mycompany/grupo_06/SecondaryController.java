@@ -164,15 +164,17 @@ public class SecondaryController implements Initializable{
         indice = x;
     }
     
-    public int alterarIndice(int indice, int pos, int length){
+    public int alterarIndice(int indice, int pos, int length, int parte){
         int x = indice + pos;
         
         if(x<0){
             x = length + x;
             setIndice(indice, x);
+            actualizarIndices(parte, x);
             return x;
         } else if(x>=length){
             x = x - length;
+            actualizarIndices(parte, x);
             setIndice(indice, x);
             return x;
         }
@@ -195,7 +197,7 @@ public class SecondaryController implements Initializable{
             public void handle(Event t) {
                 System.out.println("UwU");
                 int length = lista.size();
-                int x = alterarIndice(indice, pos, length);
+                int x = alterarIndice(indice, pos, length, parte);
                 hb.getChildren().clear();
                 mostrarPartes(lista, x, hb, parte);
             }
@@ -214,7 +216,7 @@ public class SecondaryController implements Initializable{
         ImageView ivOjos = emoji.setImageOjos();
         
         ivOjos.setTranslateY(-10);
-        ivBoca.setTranslateY(15);
+        ivBoca.setTranslateY(20);
         
         panelEmoji.getChildren().add(ivCuerpo);
         panelEmoji.getChildren().add(ivBoca);

@@ -83,7 +83,7 @@ public class BienvenidaController implements Initializable {
             ImageView ivOjos = em.setImageOjos();
             
             ivOjos.setTranslateY(-10);
-            ivBoca.setTranslateY(15);
+            ivBoca.setTranslateY(20);
             panel.getChildren().add(ivCuerpo);
             panel.getChildren().add(ivBoca);
             panel.getChildren().add(ivOjos);

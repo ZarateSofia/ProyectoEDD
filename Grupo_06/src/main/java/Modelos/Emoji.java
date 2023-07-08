@@ -113,8 +113,8 @@ public class Emoji implements Serializable{
         if(!ojos.equals("")){
             Image imagen = new Image(ojos);
             img.setImage(imagen);
-            img.setFitWidth(60);
-            img.setFitHeight(60);
+            img.setFitWidth(70);
+            img.setFitHeight(70);
             return img;
         }
         return img;
