@@ -49,13 +49,17 @@ public class SecondaryController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        indiceCara = 0;
-        indiceBoca = 0;
-        indiceOjos = 0;
+        emoji = BienvenidaController.devolverEmoji();
+        
+        
         Caras = cargarCaras();
         Bocas = cargarBocas();
         Ojos = cargarOjos();
-        emoji = BienvenidaController.devolverEmoji();
+        
+        indiceCara = indexOfPart(emoji.getCuerpo(), Caras);
+        indiceBoca = indexOfPart(emoji.getBoca(), Bocas);
+        indiceOjos = indexOfPart(emoji.getOjos(), Ojos);
+        
         
         mostrarPartes(Caras, indiceCara, listadoCaras, 1);
         mostrarPartes(Bocas, indiceBoca, listadoBocas, 2);
@@ -268,6 +272,28 @@ public class SecondaryController implements Initializable{
         System.out.println("PrevElement: " + indiceCara);
     }
     
+    private int indexOfPart(String parte, LCD<ImageView> listaImagenes){
+        int index = 0;
+        for(ImageView i: listaImagenes){
+            String x = i.getImage().getUrl();
+            if(parte.equals(x)){
+                return index;
+            }
+            index++;
+        }
+        return 0;
+    }
+    
+    private void actualizarIndices(int parte, int cantidad){
+        switch (parte) {
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+    }
    
     
     @FXML

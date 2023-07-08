@@ -174,6 +174,20 @@ public class LCD<E> implements List<E> {
         
         return elemento;
     }
+    
+    public int indexOf(E element){
+        int i = 0;
+        Node<E> node = last;
+        for(E e: this){
+            if(e.equals(node.getContent())){
+                return i;
+                
+            }
+            i++;
+        }
+        
+        return i;
+    }
 
     @Override
     public Iterator<E> iterator() {
