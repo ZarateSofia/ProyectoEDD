@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -86,21 +87,54 @@ public class PrimaryController implements Initializable{
     @FXML
     private void crearUsuario(ActionEvent event) {
         VBox root=new VBox();
+        Label lbCuenta=new Label("Crear Cuenta");
+        lbCuenta.setAlignment(Pos.CENTER);
+        lbCuenta.setStyle("-fx-font-weight: bold; -fx-font-size:36; -fx-font-family: Segoe UI Black; -fx-text-fill: black ");
         TextField nombre=new TextField();
         nombre.setPromptText("Nombre");
+        nombre.setAlignment(Pos.CENTER);
+        nombre.setPrefSize(183, 35);
+        nombre.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
         TextField apellido=new TextField();
         apellido.setPromptText("Apellido");
+        apellido.setAlignment(Pos.CENTER);
+        apellido.setPrefSize(183, 35);
+        apellido.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
         TextField usuario=new TextField();
         usuario.setPromptText("Usuario");
+        usuario.setAlignment(Pos.CENTER);
+        usuario.setPrefSize(183, 35);
+        usuario.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
         TextField contra=new TextField();
         contra.setPromptText("Clave");
+        contra.setAlignment(Pos.CENTER);
+        contra.setPrefSize(183, 35);
+        contra.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
         Button crear=new Button("Crear cuenta");
-        root.getChildren().addAll(nombre,apellido,usuario,contra,crear);
+        crear.setAlignment(Pos.CENTER);
+        crear.setPrefSize(101, 35);
+        crear.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+
+        root.getChildren().addAll(lbCuenta,nombre,apellido,usuario,contra,crear);
         root.setSpacing(25);
         root.setAlignment(Pos.CENTER);
         root.setFillWidth(false);
         root.setPrefSize(473, 372);
         App.scene.setRoot(root);
+        
+        try(FileInputStream input=new FileInputStream("src/main/resources/source/fondoBienvenida.jpg")){
+            Image image=new Image(input,751, 500,false,false);
+            BackgroundImage bImg = new BackgroundImage(image,
+                                                   BackgroundRepeat.NO_REPEAT,
+                                                   BackgroundRepeat.NO_REPEAT,
+                                                   BackgroundPosition.CENTER,
+                                                   BackgroundSize.DEFAULT);
+            Background bGround = new Background(bImg);
+            root.setBackground(bGround);
+        }catch(IOException e){
+            System.out.println("Archivo no encontrado");            
+        }
+        
         
         crear.addEventHandler(ActionEvent.ACTION, (ActionEvent t) -> {
             if(nombre.getText().equals("") || apellido.getText().equals("")|| usuario.getText().equals("")|| contra.getText().equals("")){
