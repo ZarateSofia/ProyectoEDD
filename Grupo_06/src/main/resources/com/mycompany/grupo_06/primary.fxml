@@ -22,7 +22,7 @@
       </VBox>
       <VBox alignment="CENTER" fillWidth="false" prefHeight="319.0" prefWidth="312.0" spacing="25.0">
          <children>
-            <TextField fx:id="tfUsuario" alignment="CENTER" prefHeight="45.0" prefWidth="183.0" promptText="Usuario" style="-fx-background-color: white; -fx-background-radius: 40;">
+            <TextField fx:id="tfUsuario" alignment="CENTER" prefHeight="40.0" prefWidth="183.0" promptText="Usuario" style="-fx-background-color: white; -fx-background-radius: 40;">
                <font>
                   <Font size="13.0" />
                </font>
