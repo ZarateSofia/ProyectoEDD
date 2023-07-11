@@ -11,9 +11,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,12 +30,6 @@ public class SecondaryController implements Initializable{
     @FXML
     Button RandomButton;
     int imagenMax = 10;
-//    @FXML
-//    HBox listadoCaras;
-//    @FXML
-//    HBox listadoOjos;
-//    @FXML
-//    HBox listadoBocas;
     
     @FXML
     HBox listado;
@@ -45,9 +39,7 @@ public class SecondaryController implements Initializable{
     Button btBoca;
     @FXML
     Button btOjos;
-    
-    
-    
+
     LCD<ImageView> Caras;
     LCD<ImageView> Bocas;
     LCD<ImageView> Ojos;
@@ -58,32 +50,69 @@ public class SecondaryController implements Initializable{
     int indiceBoca;
     int indiceOjos;
     
+    @FXML
+    ImageView imgvFdere;
+    @FXML
+    ImageView imgvFizq;
+    @FXML
+    HBox hBoxBotones;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        emoji = BienvenidaController.devolverEmoji();
-        
+        emoji = BienvenidaController.devolverEmoji();        
         
         Caras = cargarCaras();
         Bocas = cargarBocas();
         Ojos = cargarOjos();
-        
-        indiceCara = indexOfPart(emoji.getCuerpo(), Caras);
+
         indiceBoca = indexOfPart(emoji.getBoca(), Bocas);
         indiceOjos = indexOfPart(emoji.getOjos(), Ojos);
+        indiceCara = indexOfPart(emoji.getCuerpo(), Caras);
+        
+        mostrarPartes(Caras, indiceCara, listado, 1);
+        mostrarPartes(Bocas, indiceBoca, listado, 2);
+        mostrarPartes(Ojos, indiceOjos, listado, 3);
         
         btCara.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
-            mostrarPartes(Caras, indiceCara, listado, 1);
+            mostrarPartes(Caras, indiceCara, listado, 1);           
         });
         
         btBoca.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
-            mostrarPartes(Bocas, indiceBoca, listado, 2);
+            mostrarPartes(Bocas, indiceBoca, listado, 2);    
         });
         
         btOjos.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
-            mostrarPartes(Ojos, indiceOjos, listado, 3);
+            mostrarPartes(Ojos, indiceOjos, listado, 3);             
         });
         
         
+    }
+    
+    public void agregarBotones(String cadena,String cadena2, LCD<ImageView> lista, int indice, HBox hb, int parte){
+        hBoxBotones.getChildren().clear();
+        Button btAgregarElemento=new Button(cadena);
+        btAgregarElemento.setPrefSize(163, 36);
+        btAgregarElemento.setStyle("-fx-font-weight: bold; -fx-font-size:14; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        Button btEliminarElemento=new Button(cadena2);
+        btEliminarElemento.setPrefSize(163, 36);
+        btEliminarElemento.setStyle("-fx-font-weight: bold; -fx-font-size:14; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        
+        hBoxBotones.getChildren().addAll(btAgregarElemento,btEliminarElemento);
+        hBoxBotones.setSpacing(20);
+        hBoxBotones.setAlignment(Pos.CENTER);
+        btAgregarElemento.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
+            Seleccionador sc = new Seleccionador();
+            sc.seleccionarComponente(lista);
+            listado.getChildren().clear();
+            mostrarPartes(lista, indice, hb, parte);
+        });
+        
+//        btEliminarElemento.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
+//            lista.remove(indice);
+////            indice=0;
+//            listado.getChildren().clear();
+//            mostrarPartes(lista, indice, hb, parte);
+//        });
     }
 
     public LCD<ImageView> cargarCaras(){
@@ -144,9 +173,9 @@ public class SecondaryController implements Initializable{
         return Ojos;
     }
     
-    public ImageView generarFlechas(boolean Der, String ruta, int indice, LCD<ImageView> lista, HBox hb, int parte){
+    public ImageView generarFlechas(boolean Der, String ruta, ImageView iv, int indice, LCD<ImageView> lista, HBox hb, int parte){
         Image img = new Image(ruta, 50, 50, true, false);
-        ImageView iv = new ImageView(img);
+        iv = new ImageView(img);
         EventHandler<MouseEvent> evento = new EventHandler(){
             @Override
             public void handle(Event t) {
@@ -255,12 +284,12 @@ public class SecondaryController implements Initializable{
         //Flecha Derecha
         File rutaFile = new File("src/main/resources/source/flechaDerecha.png") ;
         String ruta = rutaFile.toURI().toString();
-        ImageView derecha = generarFlechas(true, ruta, indice, lista,hb, parte);
+        ImageView derecha = generarFlechas(true, ruta,imgvFdere, indice, lista,hb, parte);
         
         //Flecha Izquierda
         rutaFile = new File("src/main/resources/source/flechaIzquierda.png");
         ruta = rutaFile.toURI().toString();
-        ImageView izquierda = generarFlechas(false, ruta, indice, lista, hb, parte);
+        ImageView izquierda = generarFlechas(false, ruta,imgvFizq, indice, lista, hb, parte);
         
         ImageView img1 = eventosPartes(-2, indice, lista, hb, parte);
         ImageView img2 = eventosPartes(-1, indice, lista, hb, parte);
@@ -279,6 +308,27 @@ public class SecondaryController implements Initializable{
         actualizarIndices(parte, indice);
         emoji.settearPartes(imgPrincipal.getImage().getUrl(), parte);
         construirEmoji();
+        
+        String cadena="";
+        String cadena2="";
+        switch (parte) {
+            case 1:
+                cadena="Agregar caras";
+                cadena2="Eliminar caras";
+                break;
+            case 2:
+                cadena="Agregar bocas";
+                cadena2="Eliminar bocas";
+                break;
+            case 3:
+                cadena="Agregar ojos";
+                cadena2="Eliminar ojos";
+                break;
+            default:
+                break;
+        }
+        
+        agregarBotones(cadena,cadena2,lista,indice,hb,parte);
     }
     
     private void nextElement(int indice, LCD<ImageView> lista, HBox hb, int parte){
@@ -323,26 +373,29 @@ public class SecondaryController implements Initializable{
     }
    
     
-    @FXML
-    private void eliminarParteCuerpo() throws IOException{
-        Caras.remove(indiceCara);
-        indiceCara = 0;
-        listado.getChildren().clear();
-        mostrarPartes(Caras, indiceCara, listado, 1);
-    }
-    
-    @FXML
-    private void eliminarParteBoca() throws IOException{
-        Bocas.remove(indiceBoca);
-        indiceBoca = 0;
-        listado.getChildren().clear();
-        mostrarPartes(Bocas, indiceBoca, listado, 2);
-    }
-    
-    @FXML
-    private void eliminarParteOjos() throws IOException{
-        
-    }
+//    @FXML
+//    private void eliminarParteCuerpo() throws IOException{
+//        Caras.remove(indiceCara);
+//        indiceCara = 0;
+//        listado.getChildren().clear();
+//        mostrarPartes(Caras, indiceCara, listado, 1);
+//    }
+//    
+//    @FXML
+//    private void eliminarParteBoca() throws IOException{
+//        Bocas.remove(indiceBoca);
+//        indiceBoca = 0;
+//        listado.getChildren().clear();
+//        mostrarPartes(Bocas, indiceBoca, listado, 2);
+//    }
+//    
+//    @FXML
+//    private void eliminarParteOjos() throws IOException{
+//        Ojos.remove(indiceOjos);
+//        indiceOjos = 0;
+//        listado.getChildren().clear();
+//        mostrarPartes(Ojos, indiceOjos, listado, 3);
+//    }
     
     @FXML
     private void guardarEmoji() throws IOException{
@@ -357,43 +410,15 @@ public class SecondaryController implements Initializable{
         Random rand = new Random();
         indiceCara = rand.nextInt(Caras.size());
         indiceBoca = rand.nextInt(Bocas.size());
-        indiceOjos = rand.nextInt(Ojos.size());
-        
+        indiceOjos = rand.nextInt(Ojos.size());        
         listado.getChildren().clear();
-//        listadoBocas.getChildren().clear();
-//        listadoOjos.getChildren().clear();
         
         mostrarPartes(Caras, indiceCara, listado, 1);
         mostrarPartes(Bocas, indiceBoca, listado, 2);
         mostrarPartes(Ojos, indiceOjos, listado,3);
-    }
-    
-    
-    @FXML
-    private void seleccionarCara() throws IOException{
-        Seleccionador sc = new Seleccionador();
-        sc.seleccionarComponente(Caras);
-        listado.getChildren().clear();
-        mostrarPartes(Caras, indiceCara, listado, 1);
-    }
+    }  
     
     @FXML
-    private void seleccionarBoca() throws IOException{
-        Seleccionador sc = new Seleccionador();
-        sc.seleccionarComponente(Bocas);
-        listado.getChildren().clear();
-        mostrarPartes(Bocas, indiceBoca, listado, 2);
-    }
-    
-    @FXML
-    private void seleccionarOjos() throws IOException{
-        Seleccionador sc = new Seleccionador();
-        sc.seleccionarComponente(Ojos);
-        listado.getChildren().clear();
-        mostrarPartes(Ojos, indiceOjos, listado, 3);
-    }
-    
-     @FXML
     private void switchToPrimary() throws IOException {
         //App.setRoot("primary");
         LCD<Integer> lista = new LCD();

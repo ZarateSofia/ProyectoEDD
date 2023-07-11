@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -22,7 +23,7 @@
                </font></Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="85.0" layoutY="238.0" prefHeight="208.0" prefWidth="582.0" spacing="20.0">
+      <VBox alignment="CENTER" layoutX="152.0" layoutY="250.0" prefHeight="208.0" prefWidth="447.0" spacing="20.0">
          <children>
             <HBox alignment="CENTER" fillHeight="false" prefHeight="61.0" prefWidth="306.0" spacing="20.0">
                <children>
@@ -48,21 +49,13 @@
                   </Button>
                </children>
             </HBox>
-            <HBox fx:id="listado" fillHeight="false" prefHeight="58.0" prefWidth="367.0" spacing="20.0" />
-            <HBox alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <HBox alignment="CENTER" fillHeight="false" prefHeight="101.0" prefWidth="440.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="163.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Agregar elemento" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="163.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Eliminar elemento" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+                  <ImageView fx:id="imgvFizq" fitHeight="77.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+                  <HBox fx:id="listado" prefHeight="100.0" prefWidth="200.0" spacing="20.0" />
+                  <ImageView fx:id="imgvFdere" fitHeight="77.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" />
+               </children></HBox>
+            <HBox fx:id="hBoxBotones" alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="20.0" />
          </children>
       </VBox>
    </children>
