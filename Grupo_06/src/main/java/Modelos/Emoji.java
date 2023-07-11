@@ -18,7 +18,7 @@ public class Emoji implements Serializable{
     private String cuerpo;
     private String ojos;
     private String boca;
-
+    
     public Emoji() {
         this.id = UUID.randomUUID();
         this.cuerpo = "";

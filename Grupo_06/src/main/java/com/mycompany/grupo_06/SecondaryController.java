@@ -29,7 +29,7 @@ public class SecondaryController implements Initializable{
     StackPane panelEmoji;
     @FXML
     Button RandomButton;
-    int imagenMax = 10;
+    int imagenMax = 15;
     
     @FXML
     HBox listado;
@@ -39,16 +39,20 @@ public class SecondaryController implements Initializable{
     Button btBoca;
     @FXML
     Button btOjos;
+    @FXML
+    Button btAgregar;
 
     LCD<ImageView> Caras;
     LCD<ImageView> Bocas;
     LCD<ImageView> Ojos;
+    LCD<ImageView> Accesorios;
     
     Emoji emoji;
     
     int indiceCara;
     int indiceBoca;
     int indiceOjos;
+    int indiceAccesorios;
     
     @FXML
     ImageView imgvFdere;
@@ -64,6 +68,7 @@ public class SecondaryController implements Initializable{
         Caras = cargarCaras();
         Bocas = cargarBocas();
         Ojos = cargarOjos();
+        Accesorios=cargarAccesorios();
 
         indiceBoca = indexOfPart(emoji.getBoca(), Bocas);
         indiceOjos = indexOfPart(emoji.getOjos(), Ojos);
@@ -108,12 +113,12 @@ public class SecondaryController implements Initializable{
             mostrarPartes(lista, indice, hb, parte);
         });
         
-//        btEliminarElemento.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
-//            lista.remove(indice);
-////            indice=0;
-//            listado.getChildren().clear();
-//            mostrarPartes(lista, indice, hb, parte);
-//        });
+        btEliminarElemento.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
+            lista.remove(indice);
+            actualizarIndice(indice);
+            listado.getChildren().clear();
+            mostrarPartes(lista, indice, hb, parte);
+        });
     }
 
     public LCD<ImageView> cargarCaras(){
@@ -172,6 +177,25 @@ public class SecondaryController implements Initializable{
         }
 
         return Ojos;
+    }
+    
+    public LCD<ImageView> cargarAccesorios(){
+        Accesorios=new LCD<>();
+        String rutaBocas = "src/main/resources/accesories/";
+        System.out.println(rutaBocas);
+        File folder = new File(rutaBocas);
+        File listFile[]= folder.listFiles();
+        if(listFile!=null){
+            for (int i=0;i<imagenMax;i++) {
+                String imagePath = listFile[i].toURI().toString();
+                Image image = new Image(imagePath,45,45,false,true);
+                ImageView imgv=new ImageView();
+                imgv.setImage(image);
+                System.out.println(Accesorios.addLast(imgv));
+            }
+        }
+
+        return Accesorios;
     }
     
     public ImageView generarFlechas(boolean Der, String ruta, ImageView iv, int indice, LCD<ImageView> lista, HBox hb, int parte){
@@ -314,12 +338,12 @@ public class SecondaryController implements Initializable{
         String cadena2="";
         switch (parte) {
             case 1:
-                cadena="Agregar caras";
-                cadena2="Eliminar caras";
+                cadena="Agregar cara";
+                cadena2="Eliminar cara";
                 break;
             case 2:
-                cadena="Agregar bocas";
-                cadena2="Eliminar bocas";
+                cadena="Agregar boca";
+                cadena2="Eliminar boca";
                 break;
             case 3:
                 cadena="Agregar ojos";
@@ -371,6 +395,10 @@ public class SecondaryController implements Initializable{
                 indiceOjos = cantidad;
                 break;
         }
+    }
+    
+    private void actualizarIndice(int indice){
+        indice=0;
     }
    
     
