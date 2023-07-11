@@ -69,9 +69,10 @@ public class SecondaryController implements Initializable{
         indiceOjos = indexOfPart(emoji.getOjos(), Ojos);
         indiceCara = indexOfPart(emoji.getCuerpo(), Caras);
         
-        mostrarPartes(Caras, indiceCara, listado, 1);
+        
         mostrarPartes(Bocas, indiceBoca, listado, 2);
         mostrarPartes(Ojos, indiceOjos, listado, 3);
+        mostrarPartes(Caras, indiceCara, listado, 1);
         
         btCara.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
             mostrarPartes(Caras, indiceCara, listado, 1);           
