@@ -321,8 +321,8 @@ public class SecondaryController implements Initializable{
         
         ivOjos.setTranslateY(-10);
         ivBoca.setTranslateY(20);
-        ivAccesorios.setTranslateY(-11);
-        ivCejas.setTranslateY(-15);
+        ivAccesorios.setTranslateY(-13);
+        ivCejas.setTranslateY(-20);
         
         panelEmoji.getChildren().add(ivCuerpo);
         panelEmoji.getChildren().add(ivBoca);
@@ -332,6 +332,7 @@ public class SecondaryController implements Initializable{
         
         
     }
+    
     public void mostrarPartes(LCD<ImageView> lista, int indice, HBox hb, int parte){
        listado.getChildren().clear();
         if(indice == lista.size()){
@@ -433,9 +434,16 @@ public class SecondaryController implements Initializable{
             case 2:
                 indiceBoca = cantidad;
                 break;
-            default:
+            case 3:
                 indiceOjos = cantidad;
                 break;
+            case 4:
+                indiceAccesorios=cantidad;
+                break;
+            default:
+                indiceCejas=cantidad;
+                break;
+                
         }
     }
     
@@ -514,8 +522,8 @@ public class SecondaryController implements Initializable{
             stage2.close();
             
             btAccesorios.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
-                indiceAccesorios = indexOfPart(emoji.getAccesorios(), Accesorios);
                 Accesorios=cargarAccesorios();
+                indiceAccesorios = indexOfPart(emoji.getAccesorios(), Accesorios);
                 mostrarPartes(Accesorios,indiceAccesorios, listado, 4);
             });
               
@@ -530,8 +538,8 @@ public class SecondaryController implements Initializable{
             stage2.close();
             
             btCejas.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
-                indiceCejas=indexOfPart(emoji.getCejas(),Cejas);
                 Cejas=cargarCejas();
+                indiceCejas=indexOfPart(emoji.getCejas(),Cejas);                
                 mostrarPartes(Cejas,indiceCejas, listado, 5);
             });
               

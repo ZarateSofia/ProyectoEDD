@@ -109,8 +109,14 @@ public class Emoji implements Serializable{
             case 2:
                 setBoca(img);
                 break;
-            default:
+            case 3:
                 setOjos(img);
+                break;
+            case 4:
+                setAccesorios(img);
+                break;
+            default:
+                setCejas(img);
                 break;
         }
     }
