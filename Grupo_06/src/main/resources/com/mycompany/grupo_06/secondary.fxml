@@ -8,20 +8,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox prefHeight="500.0" prefWidth="751.0" spacing="20.0" style="-fx-background-color: #fbf2ac;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
    <children>
       <HBox alignment="CENTER" fillHeight="false" prefHeight="231.0" prefWidth="751.0" spacing="20.0">
          <children>
             <StackPane fx:id="panelEmoji" accessibleRole="IMAGE_VIEW" cache="true" onDragDetected="#switchToPrimary" prefHeight="200.0" prefWidth="207.0" style="-fx-background-color: white; -fx-background-radius: 600;" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="85.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="117.0" spacing="10.0">
                <children>
-                  <Button fx:id="RandomButton" mnemonicParsing="false" onAction="#emojiRandom" prefHeight="36.0" prefWidth="77.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Random" textFill="WHITE">
+                  <Button fx:id="RandomButton" mnemonicParsing="false" onAction="#emojiRandom" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Random" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#guardarEmoji" prefHeight="36.0" prefWidth="77.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Guardar" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#guardarEmoji" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Guardar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#agregarComponentes" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="+Agregar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -32,24 +36,19 @@
       </HBox>
       <VBox alignment="CENTER" prefHeight="208.0" prefWidth="571.0" spacing="20.0">
          <children>
-            <HBox alignment="CENTER" fillHeight="false" prefHeight="61.0" prefWidth="306.0" spacing="20.0">
+            <HBox fx:id="hBoxPartesCuerpo" alignment="CENTER" fillHeight="false" prefHeight="61.0" prefWidth="306.0" spacing="20.0">
                <children>
-                  <Button fx:id="btCara" mnemonicParsing="false" prefHeight="36.0" prefWidth="83.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Cara" textFill="WHITE">
+                  <Button fx:id="btCara" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Cara" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btBoca" mnemonicParsing="false" prefHeight="36.0" prefWidth="83.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Boca" textFill="WHITE">
+                  <Button fx:id="btBoca" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Boca" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btOjos" mnemonicParsing="false" prefHeight="36.0" prefWidth="83.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Ojos" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="+Agregar" textFill="WHITE">
+                  <Button fx:id="btOjos" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="Ojos" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

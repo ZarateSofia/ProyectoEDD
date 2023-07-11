@@ -11,15 +11,20 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import tdas.LCD;
 
 
@@ -46,6 +51,7 @@ public class SecondaryController implements Initializable{
     LCD<ImageView> Bocas;
     LCD<ImageView> Ojos;
     LCD<ImageView> Accesorios;
+    LCD<ImageView> Cejas;
     
     Emoji emoji;
     
@@ -53,6 +59,7 @@ public class SecondaryController implements Initializable{
     int indiceBoca;
     int indiceOjos;
     int indiceAccesorios;
+    int indiceCejas;
     
     @FXML
     ImageView imgvFdere;
@@ -60,6 +67,8 @@ public class SecondaryController implements Initializable{
     ImageView imgvFizq;
     @FXML
     HBox hBoxBotones;
+    @FXML
+    HBox hBoxPartesCuerpo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,7 +77,7 @@ public class SecondaryController implements Initializable{
         Caras = cargarCaras();
         Bocas = cargarBocas();
         Ojos = cargarOjos();
-        Accesorios=cargarAccesorios();
+//        Accesorios=cargarAccesorios();
 
         indiceBoca = indexOfPart(emoji.getBoca(), Bocas);
         indiceOjos = indexOfPart(emoji.getOjos(), Ojos);
@@ -181,9 +190,9 @@ public class SecondaryController implements Initializable{
     
     public LCD<ImageView> cargarAccesorios(){
         Accesorios=new LCD<>();
-        String rutaBocas = "src/main/resources/accesories/";
-        System.out.println(rutaBocas);
-        File folder = new File(rutaBocas);
+        String rutaAccesorios = "src/main/resources/accessories/";
+        System.out.println(rutaAccesorios);
+        File folder = new File(rutaAccesorios);
         File listFile[]= folder.listFiles();
         if(listFile!=null){
             for (int i=0;i<imagenMax;i++) {
@@ -196,6 +205,25 @@ public class SecondaryController implements Initializable{
         }
 
         return Accesorios;
+    }
+    
+    public LCD<ImageView> cargarCejas(){
+        Cejas=new LCD<>();
+        String rutaCejas = "src/main/resources/eyebrows/";
+        System.out.println(rutaCejas);
+        File folder = new File(rutaCejas);
+        File listFile[]= folder.listFiles();
+        if(listFile!=null){
+            for (int i=0;i<imagenMax;i++) {
+                String imagePath = listFile[i].toURI().toString();
+                Image image = new Image(imagePath,45,45,false,true);
+                ImageView imgv=new ImageView();
+                imgv.setImage(image);
+                System.out.println(Cejas.addLast(imgv));
+            }
+        }
+
+        return Cejas;
     }
     
     public ImageView generarFlechas(boolean Der, String ruta, ImageView iv, int indice, LCD<ImageView> lista, HBox hb, int parte){
@@ -288,13 +316,19 @@ public class SecondaryController implements Initializable{
         ImageView ivCuerpo = emoji.setImageCuerpo();
         ImageView ivBoca = emoji.setImageBoca();
         ImageView ivOjos = emoji.setImageOjos();
+        ImageView ivAccesorios=emoji.setImageAccesorios();
+        ImageView ivCejas=emoji.setImageCejas();
         
         ivOjos.setTranslateY(-10);
         ivBoca.setTranslateY(20);
+        ivAccesorios.setTranslateY(-11);
+        ivCejas.setTranslateY(-15);
         
         panelEmoji.getChildren().add(ivCuerpo);
         panelEmoji.getChildren().add(ivBoca);
         panelEmoji.getChildren().add(ivOjos);
+        panelEmoji.getChildren().add(ivAccesorios);
+        panelEmoji.getChildren().add(ivCejas);
         
         
     }
@@ -349,6 +383,14 @@ public class SecondaryController implements Initializable{
                 cadena="Agregar ojos";
                 cadena2="Eliminar ojos";
                 break;
+            case 4:
+                cadena="Agregar accesorio";
+                cadena2="Eliminar accesorio";
+                break;
+            case 5:
+                cadena="Agregar ceja";
+                cadena2="Eliminar ceja";
+                break;
             default:
                 break;
         }
@@ -400,31 +442,6 @@ public class SecondaryController implements Initializable{
     private void actualizarIndice(int indice){
         indice=0;
     }
-   
-    
-//    @FXML
-//    private void eliminarParteCuerpo() throws IOException{
-//        Caras.remove(indiceCara);
-//        indiceCara = 0;
-//        listado.getChildren().clear();
-//        mostrarPartes(Caras, indiceCara, listado, 1);
-//    }
-//    
-//    @FXML
-//    private void eliminarParteBoca() throws IOException{
-//        Bocas.remove(indiceBoca);
-//        indiceBoca = 0;
-//        listado.getChildren().clear();
-//        mostrarPartes(Bocas, indiceBoca, listado, 2);
-//    }
-//    
-//    @FXML
-//    private void eliminarParteOjos() throws IOException{
-//        Ojos.remove(indiceOjos);
-//        indiceOjos = 0;
-//        listado.getChildren().clear();
-//        mostrarPartes(Ojos, indiceOjos, listado, 3);
-//    }
     
     @FXML
     private void guardarEmoji() throws IOException{
@@ -454,4 +471,70 @@ public class SecondaryController implements Initializable{
         lista.get(-1);
     }
     
+    @FXML
+    private void agregarComponentes() throws IOException{
+        VBox popup=new VBox();
+        
+        HBox hbLabel=new HBox();
+        Label l=new Label("¿Qué desea agregar?");
+        l.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black");
+        hbLabel.getChildren().add(l);
+        hbLabel.setAlignment(Pos.CENTER);
+
+        HBox hb1=new HBox();
+        Button btAcc=new Button("Accesorios");
+        btAcc.setPrefSize(101, 35);
+        btAcc.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        hb1.getChildren().add(btAcc);
+        hb1.setAlignment(Pos.CENTER);
+        
+        HBox hb2=new HBox();
+        Button btCe=new Button("Cejas");
+        btCe.setPrefSize(101, 35);
+        btCe.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        hb2.getChildren().add(btCe);
+        hb2.setAlignment(Pos.CENTER);
+        
+        popup.getChildren().addAll(hbLabel,hb1,hb2);
+        popup.setSpacing(20);
+        popup.setAlignment(Pos.CENTER);
+        popup.setStyle("-fx-background-color: white");
+
+        Scene scene2=new Scene(popup,322,168);
+        Stage stage2=new Stage();
+        stage2.setScene(scene2);
+        stage2.show();
+        
+        btAcc.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
+            Button btAccesorios=new Button("Accesorios");
+            btAccesorios.setPrefSize(106, 36);
+            btAccesorios.setStyle("-fx-font-weight: bold; -fx-font-size:14; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+            hBoxPartesCuerpo.getChildren().add(btAccesorios);
+            
+            stage2.close();
+            
+            btAccesorios.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
+                indiceAccesorios = indexOfPart(emoji.getAccesorios(), Accesorios);
+                Accesorios=cargarAccesorios();
+                mostrarPartes(Accesorios,indiceAccesorios, listado, 4);
+            });
+              
+        });
+        
+        btCe.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
+            Button btCejas=new Button("Cejas");
+            btCejas.setPrefSize(106, 36);
+            btCejas.setStyle("-fx-font-weight: bold; -fx-font-size:14; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+            hBoxPartesCuerpo.getChildren().add(btCejas);
+            
+            stage2.close();
+            
+            btCejas.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
+                indiceCejas=indexOfPart(emoji.getCejas(),Cejas);
+                Cejas=cargarCejas();
+                mostrarPartes(Cejas,indiceCejas, listado, 5);
+            });
+              
+        });
+    }
 }

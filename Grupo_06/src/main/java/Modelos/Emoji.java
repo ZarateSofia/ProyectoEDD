@@ -18,12 +18,16 @@ public class Emoji implements Serializable{
     private String cuerpo;
     private String ojos;
     private String boca;
+    private String accesorios;
+    private String cejas;
     
     public Emoji() {
         this.id = UUID.randomUUID();
         this.cuerpo = "";
         this.ojos = "";
         this.boca = "";
+        this.accesorios="";
+        this.cejas="";
     }
 
     public UUID getId() {
@@ -52,6 +56,22 @@ public class Emoji implements Serializable{
 
     public void setBoca(String boca) {
         this.boca = boca;
+    }
+
+    public String getAccesorios() {
+        return accesorios;
+    }
+
+    public void setAccesorios(String accesorios) {
+        this.accesorios = accesorios;
+    }
+
+    public String getCejas() {
+        return cejas;
+    }
+
+    public void setCejas(String cejas) {
+        this.cejas = cejas;
     }
 
     @Override
@@ -128,6 +148,32 @@ public class Emoji implements Serializable{
             img.setImage(imagen);
             img.setFitWidth(50);
             img.setFitHeight(50);
+            return img;
+        }
+        return img;
+    }
+    
+    public ImageView setImageAccesorios(){
+        ImageView img = new ImageView();
+        
+        if(!accesorios.equals("")){
+            Image imagen = new Image(accesorios);
+            img.setImage(imagen);
+            img.setFitWidth(70);
+            img.setFitHeight(70);
+            return img;
+        }
+        return img;
+    }
+    
+    public ImageView setImageCejas(){
+        ImageView img = new ImageView();
+        
+        if(!cejas.equals("")){
+            Image imagen = new Image(cejas);
+            img.setImage(imagen);
+            img.setFitWidth(70);
+            img.setFitHeight(70);
             return img;
         }
         return img;
