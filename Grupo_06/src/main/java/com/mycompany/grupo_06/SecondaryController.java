@@ -480,6 +480,12 @@ public class SecondaryController implements Initializable{
     }
     
     @FXML
+    private void guardarProyectoEmoji() throws IOException{
+        Seleccionador sc = new Seleccionador();
+        sc.guardarEmoji(emoji);
+    }
+    
+    @FXML
     private void agregarComponentes() throws IOException{
         VBox popup=new VBox();
         

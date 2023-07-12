@@ -6,9 +6,15 @@ package Modelos;
 
 import com.mycompany.grupo_06.App;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import tdas.LCD;
@@ -19,9 +25,11 @@ import tdas.LCD;
  */
 public class Seleccionador {
      private FileChooser fileChooser;
+     private DirectoryChooser directory;
      
      public Seleccionador(){
          fileChooser = new FileChooser();
+         directory = new DirectoryChooser();
      }
      
      public void seleccionarComponente(LCD<ImageView> lista){
@@ -45,11 +53,46 @@ public class Seleccionador {
          
      }
      
-     //Terminar
-     public File seleccionarCarpeta(){
-         fileChooser.setTitle("Guardar Emoji");
-         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo PNG", "*.png"));
-         File file = fileChooser.showSaveDialog(App.getScene().getWindow());
-         return file;
+     public Emoji cargarEmoji(){
+         Emoji em = new Emoji();
+         fileChooser.setTitle("Seleccionar una proyecto Emoji");
+         ExtensionFilter extensionFilter = new ExtensionFilter("Archivos SER", "*.ser");
+         fileChooser.getExtensionFilters().add(extensionFilter);
+         
+         String selectedFile = fileChooser.showOpenDialog(App.getScene().getWindow()).toString();
+         
+         if(selectedFile != null){
+             try(ObjectInputStream objinput=new ObjectInputStream(new FileInputStream(selectedFile));){
+            em = (Emoji)objinput.readObject();
+            }catch(ClassNotFoundException ex){
+                 System.out.println("No se encontró la clase");
+            }
+            catch(IOException e){
+                System.out.println(e.getMessage());
+            }
+         }
+         
+         
+         return em;
+     }
+     
+    
+     public void guardarEmoji(Emoji em){
+         directory.setTitle("Seleccionar una carpeta para guardar el emoji");
+         File carpetaDestino = directory.showDialog(App.getScene().getWindow());
+         
+         if(carpetaDestino != null){
+             String nombre = "Emoji.ser";
+             File archivoDestino = new File(carpetaDestino, nombre);
+             try(FileOutputStream archivoSalida = new FileOutputStream(archivoDestino);
+                     ObjectOutputStream objetoSalida = new ObjectOutputStream(archivoSalida)
+                     ){
+                 objetoSalida.writeObject(em);
+                 
+             }catch(IOException e){
+                 System.out.println(e.getCause());
+             }
+         }
+         
      }
 }

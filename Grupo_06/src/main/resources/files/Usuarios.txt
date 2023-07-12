@@ -12,3 +12,4 @@ Soledad,Zarate,szarate,123
 Sofia,Zarate,szarate,1234
 Pedro,Luna,pluna,12345
 Nuevo,Usuario,usuario,1234
+Angello,Bravo,adbravo,123

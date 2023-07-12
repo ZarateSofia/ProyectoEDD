@@ -5,6 +5,10 @@
 package Modelos;
 
 import java.io.Serializable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.UUID;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -174,7 +178,7 @@ public class Emoji implements Serializable{
     
     public ImageView setImageCejas(){
         ImageView img = new ImageView();
-        
+         
         if(!cejas.equals("")){
             Image imagen = new Image(cejas);
             img.setImage(imagen);
@@ -184,4 +188,5 @@ public class Emoji implements Serializable{
         }
         return img;
     }
+    
 }

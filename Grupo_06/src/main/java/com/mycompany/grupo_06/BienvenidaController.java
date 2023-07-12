@@ -5,6 +5,7 @@
 package com.mycompany.grupo_06;
 
 import Modelos.Emoji;
+import Modelos.Seleccionador;
 import Modelos.Usuario;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.UUID;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -36,6 +38,10 @@ public class BienvenidaController implements Initializable {
     Label lbBienvenida;
     @FXML
     Button btCrearEmoji;
+    @FXML
+    Button btCargarEmoji;
+    @FXML
+    Button btLimpiarHistorial;
     @FXML
     ImageView imgv;
     @FXML
@@ -81,12 +87,19 @@ public class BienvenidaController implements Initializable {
             ImageView ivCuerpo = em.setImageCuerpo();
             ImageView ivBoca = em.setImageBoca();
             ImageView ivOjos = em.setImageOjos();
+            ImageView ivAccesorios = em.setImageAccesorios();
+            ImageView ivCejas = em.setImageCejas();
             
             ivOjos.setTranslateY(-10);
             ivBoca.setTranslateY(20);
+            ivAccesorios.setTranslateY(-13);
+            ivCejas.setTranslateY(-20);
+            
             panel.getChildren().add(ivCuerpo);
             panel.getChildren().add(ivBoca);
             panel.getChildren().add(ivOjos);
+            panel.getChildren().add(ivAccesorios);
+            panel.getChildren().add(ivCejas);
             
             panel.setOnMouseClicked(e -> {
                 
@@ -117,6 +130,20 @@ public class BienvenidaController implements Initializable {
         panelHistorial.setContent(vb);
         
       }
+    
+    @FXML
+    private void limpiarHistorial() throws IOException{
+        u.getListaEmojis().clear();
+        Usuario.escribirLista(PrimaryController.listaUsuarios);
+        panelHistorial.setContent(new HBox());
+    }
+    
+    @FXML
+    private void cargarEmoji() throws IOException{
+        Seleccionador sc = new Seleccionador();
+        emoji = sc.cargarEmoji();
+        App.setRoot("secondary");
+    }
     
     public static Emoji devolverEmoji(){
         if(emoji == null){

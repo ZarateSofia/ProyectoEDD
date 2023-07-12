@@ -27,13 +27,13 @@ public class Exportador {
         wi = new WritableImage(width, height);
     }
     
-    public void exportToPNG(StackPane panel){
-        panel.snapshot(null, wi);
-        Seleccionador sc = new Seleccionador();
-        File file = sc.seleccionarCarpeta();
-        if(file != null){
-            //
-
-        }
-    }
+//    public void exportToPNG(StackPane panel){
+//        panel.snapshot(null, wi);
+//        Seleccionador sc = new Seleccionador();
+//        //File file = sc.seleccionarCarpeta();
+//        if(file != null){
+//            //
+//
+//        }
+//    }
 }
