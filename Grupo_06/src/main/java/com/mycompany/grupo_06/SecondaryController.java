@@ -15,6 +15,7 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -77,7 +78,6 @@ public class SecondaryController implements Initializable{
         Caras = cargarCaras();
         Bocas = cargarBocas();
         Ojos = cargarOjos();
-//        Accesorios=cargarAccesorios();
 
         indiceBoca = indexOfPart(emoji.getBoca(), Bocas);
         indiceOjos = indexOfPart(emoji.getOjos(), Ojos);
@@ -321,8 +321,8 @@ public class SecondaryController implements Initializable{
         
         ivOjos.setTranslateY(-10);
         ivBoca.setTranslateY(20);
-        ivAccesorios.setTranslateY(-13);
-        ivCejas.setTranslateY(-20);
+        ivAccesorios.setTranslateY(-10);
+        ivCejas.setTranslateY(-40);
         
         panelEmoji.getChildren().add(ivCuerpo);
         panelEmoji.getChildren().add(ivBoca);
@@ -491,7 +491,7 @@ public class SecondaryController implements Initializable{
         
         HBox hbLabel=new HBox();
         Label l=new Label("¿Qué desea agregar?");
-        l.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black");
+        l.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: black");
         hbLabel.getChildren().add(l);
         hbLabel.setAlignment(Pos.CENTER);
 
@@ -519,8 +519,24 @@ public class SecondaryController implements Initializable{
         stage2.setScene(scene2);
         stage2.show();
         
+        Button btAccesorios=new Button("Accesorios");
+        btAccesorios.setId("b1");
+        Button btCejas=new Button("Cejas");
+        btCejas.setId("b2");
+        
+        for (Node child : hBoxPartesCuerpo.getChildren()) {
+            if(child.getId().equalsIgnoreCase("b1")){
+                btAcc.setDisable(true);
+                System.out.println(btAcc.isDisabled());
+            }    
+            else if(child.getId().equalsIgnoreCase("b2")){
+                btCe.setDisable(true);
+                System.out.println(btCe.isDisabled());
+            }
+        }
+        
         btAcc.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
-            Button btAccesorios=new Button("Accesorios");
+            
             btAccesorios.setPrefSize(106, 36);
             btAccesorios.setStyle("-fx-font-weight: bold; -fx-font-size:14; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
             hBoxPartesCuerpo.getChildren().add(btAccesorios);
@@ -536,7 +552,7 @@ public class SecondaryController implements Initializable{
         });
         
         btCe.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
-            Button btCejas=new Button("Cejas");
+            
             btCejas.setPrefSize(106, 36);
             btCejas.setStyle("-fx-font-weight: bold; -fx-font-size:14; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
             hBoxPartesCuerpo.getChildren().add(btCejas);
@@ -550,5 +566,6 @@ public class SecondaryController implements Initializable{
             });
               
         });
+        
     }
 }
