@@ -11,7 +11,6 @@ package tdas;
  */
 public interface List<E> extends Iterable<E> {
     boolean addLast(E element);
-    void add(int index, E element);
     int size();
     boolean isEmpty();
     E get(int index);

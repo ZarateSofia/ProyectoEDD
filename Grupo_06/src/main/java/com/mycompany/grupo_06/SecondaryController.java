@@ -453,10 +453,63 @@ public class SecondaryController implements Initializable{
     
     @FXML
     private void guardarEmoji() throws IOException{
-        Usuario u = PrimaryController.devolverUsuario();
-        u.agregarEmoji(emoji);
-        Usuario.escribirLista(PrimaryController.listaUsuarios);
-        App.setRoot("Bienvenida");
+        
+        VBox popup=new VBox();
+        
+        HBox hbLabel=new HBox();
+        Label l=new Label("¿Cómo desea guardar?");
+        l.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: black");
+        hbLabel.getChildren().add(l);
+        hbLabel.setAlignment(Pos.CENTER);
+
+        HBox hb1=new HBox();
+        Button bProyecto=new Button("Proyecto");
+        bProyecto.setPrefSize(101, 35);
+        bProyecto.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        hb1.getChildren().add(bProyecto);
+        hb1.setAlignment(Pos.CENTER);
+        
+        HBox hb2=new HBox();
+        Button bHistorial=new Button("Historial");
+        bHistorial.setPrefSize(101, 35);
+        bHistorial.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        hb2.getChildren().add(bHistorial);
+        hb2.setAlignment(Pos.CENTER);
+        
+        popup.getChildren().addAll(hbLabel,hb1,hb2);
+        popup.setSpacing(20);
+        popup.setAlignment(Pos.CENTER);
+        popup.setStyle("-fx-background-color: white");
+
+        Scene scene2=new Scene(popup,322,168);
+        Stage stage2=new Stage();
+        stage2.setScene(scene2);
+        stage2.show();
+        
+        bProyecto.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
+
+            stage2.close();
+            
+            Seleccionador sc = new Seleccionador();
+            sc.guardarEmoji(emoji);
+ 
+        });
+        
+        bHistorial.addEventHandler(ActionEvent.ACTION, (ActionEvent t)-> {
+
+            stage2.close();
+            
+            Usuario u = PrimaryController.devolverUsuario();
+            u.agregarEmoji(emoji);
+            Usuario.escribirLista(PrimaryController.listaUsuarios);
+            try {
+                App.setRoot("Bienvenida");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }  
+            
+        });
+        
     }
     
     @FXML
@@ -477,12 +530,6 @@ public class SecondaryController implements Initializable{
         //App.setRoot("primary");
         LCD<Integer> lista = new LCD();
         lista.get(-1);
-    }
-    
-    @FXML
-    private void guardarProyectoEmoji() throws IOException{
-        Seleccionador sc = new Seleccionador();
-        sc.guardarEmoji(emoji);
     }
     
     @FXML
@@ -567,5 +614,10 @@ public class SecondaryController implements Initializable{
               
         });
         
+    }
+    
+    @FXML
+    private void volver() throws IOException{
+        App.setRoot("Bienvenida");
     }
 }

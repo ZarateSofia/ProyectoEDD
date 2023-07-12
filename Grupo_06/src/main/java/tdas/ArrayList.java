@@ -65,23 +65,6 @@ public class ArrayList<E> implements List<E>, Serializable {
     }
 
     @Override
-    public void add(int index, E element) {
-//        if (index < 0 || index > effectiveSize) {
-//            // throw new IndexOutOfBoundsException("Invalid index: " + index);
-//            return false;
-//        }
-//        if (isFull()) {
-//            addCapacity();
-//        }
-//        for (int i = effectiveSize; i > index; i--) {
-//            elements[i] = elements[i - 1];
-//        }
-//        elements[index] = element;
-//        effectiveSize++;
-//        return true;
-    }
-
-    @Override
     public E remove(int index) {
         if(index>=effectiveSize || index<0){
             return null;

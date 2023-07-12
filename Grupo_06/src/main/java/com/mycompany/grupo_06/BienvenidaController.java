@@ -92,8 +92,8 @@ public class BienvenidaController implements Initializable {
             
             ivOjos.setTranslateY(-10);
             ivBoca.setTranslateY(20);
-            ivAccesorios.setTranslateY(-13);
-            ivCejas.setTranslateY(-20);
+            ivAccesorios.setTranslateY(-10);
+            ivCejas.setTranslateY(-40);
             
             panel.getChildren().add(ivCuerpo);
             panel.getChildren().add(ivBoca);

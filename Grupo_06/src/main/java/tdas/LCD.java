@@ -44,11 +44,6 @@ public class LCD<E> implements List<E> {
     }
 
     @Override
-    public void add(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public int size() {
         int cont = 0;
         for(E nodo:this){
