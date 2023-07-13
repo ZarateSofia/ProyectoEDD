@@ -5,18 +5,24 @@
 package Modelos;
 
 import com.mycompany.grupo_06.App;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.Buffer;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javax.imageio.ImageIO;
 import tdas.LCD;
 
 /**
@@ -95,4 +101,34 @@ public class Seleccionador {
          }
          
      }
+     
+     public void exportarEmoji(StackPane emoji){
+         WritableImage image = emoji.snapshot(new SnapshotParameters(), null);
+         BufferedImage bufferedImage = fxImage(image);
+         directory.setTitle("Exportar a PNG");
+         File carpetaDestino = directory.showDialog(App.getScene().getWindow());
+         if(carpetaDestino != null){
+             try{
+                 File file = new File(carpetaDestino, "emoji.png");
+                 ImageIO.write(bufferedImage, "png", file);
+             }catch(IOException e){
+                 System.out.println("No entro");
+             }
+             
+         }
+     }
+     
+     private BufferedImage fxImage(WritableImage fxImage){
+         int width = (int) fxImage.getWidth();
+        int height = (int) fxImage.getHeight();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                image.setRGB(x, y, fxImage.getPixelReader().getArgb(x, y));
+            }
+        }
+        return image;
+     }
+     
+   
 }

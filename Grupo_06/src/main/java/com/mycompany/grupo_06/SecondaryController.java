@@ -564,12 +564,19 @@ public class SecondaryController implements Initializable{
         hb2.getChildren().add(bHistorial);
         hb2.setAlignment(Pos.CENTER);
         
-        popup.getChildren().addAll(hbLabel,hb1,hb2);
+        HBox hb3=new HBox();
+        Button bPNG=new Button("PNG");
+        bPNG.setPrefSize(101, 35);
+        bPNG.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        hb3.getChildren().add(bPNG);
+        hb3.setAlignment(Pos.CENTER);
+        
+        popup.getChildren().addAll(hbLabel,hb1,hb2, hb3);
         popup.setSpacing(20);
         popup.setAlignment(Pos.CENTER);
         popup.setStyle("-fx-background-color: white");
 
-        Scene scene2=new Scene(popup,322,168);
+        Scene scene2=new Scene(popup,322,200);
         Stage stage2=new Stage();
         stage2.setScene(scene2);
         stage2.show();
@@ -597,6 +604,12 @@ public class SecondaryController implements Initializable{
             }  
             
         });
+        
+        bPNG.addEventHandler(ActionEvent.ACTION, (ActionEvent t) ->{
+            stage2.close();
+            Seleccionador sc = new Seleccionador();
+            sc.exportarEmoji(panelEmoji);
+            });
         
     }
     
