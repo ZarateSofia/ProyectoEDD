@@ -32,7 +32,7 @@ import javafx.scene.layout.VBox;
  */
 public class BienvenidaController implements Initializable {
     
-    Usuario u=PrimaryController.devolverUsuario();
+    Usuario u;
     static Emoji emoji;
     @FXML
     Label lbBienvenida;
@@ -52,6 +52,7 @@ public class BienvenidaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        u=PrimaryController.devolverUsuario();
         lbBienvenida.setText("Bienvenid@ "+u.getNombre());
         lbBienvenida.setStyle("-fx-font-weight: bold; -fx-font-size:40; -fx-font-family: Segoe UI Black; -fx-text-fill: black ");
         try(FileInputStream input=new FileInputStream("src/main/resources/source/emojiSaludando.gif")){
@@ -152,6 +153,12 @@ public class BienvenidaController implements Initializable {
             return emoji;
         }
         
+    }
+    
+    @FXML
+    private void cerrarSesion() throws IOException{
+        App.setRoot("primary");
+        u=null;
     }
     
 }

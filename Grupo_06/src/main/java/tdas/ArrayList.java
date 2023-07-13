@@ -117,4 +117,15 @@ public class ArrayList<E> implements List<E>, Serializable {
         };
         return it;
     }
+    
+//    public boolean contains(E e){
+//        for (int i=0; i<effectiveSize;i++){
+//            if(e.equals(elements[i])){
+//                return true;
+//            }else{
+//                return false;
+//            }
+//        }
+//        return false;
+//    }
 }

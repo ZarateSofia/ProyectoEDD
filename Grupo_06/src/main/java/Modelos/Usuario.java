@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import tdas.ArrayList;
 
@@ -26,7 +27,7 @@ public class Usuario implements Serializable{
     private String usuario;
     private String clave;
     private Map<UUID, Emoji> listaEmojis;
-    //private ArrayList<UUID> listaID;
+    private String mapa;
 
     public Usuario(String nombre, String apellido,String usuario, String clave) {
         this.nombre=nombre;
@@ -34,7 +35,6 @@ public class Usuario implements Serializable{
         this.usuario = usuario;
         this.clave = clave;
         this.listaEmojis=new LinkedHashMap();
-        //this.listaID = new ArrayList();
     }
 
     public Map<UUID, Emoji> getListaEmojis() {
@@ -44,12 +44,7 @@ public class Usuario implements Serializable{
     public void setListaEmojis(Map<UUID, Emoji> listaEmojis) {
         this.listaEmojis = listaEmojis;
     }
-
-//    public ArrayList<UUID> getListaID() {
-//        return listaID;
-//    }
     
-
     public String getNombre() {
         return nombre;
     }
@@ -120,6 +115,15 @@ public class Usuario implements Serializable{
         } catch(IOException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public static boolean validarExistencia(ArrayList<Usuario> lista, String usuario){
+        for(int i=0;i<lista.size();i++){
+            if(usuario.equalsIgnoreCase(lista.get(i).getUsuario())){
+                return true;
+            }
+        }
+        return false;
     }
     
 }

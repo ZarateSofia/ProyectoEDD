@@ -38,4 +38,12 @@ public class Alerta {
         alerta.setContentText("Alguno de los parametros se encuentra vacío");
         alerta.showAndWait();
     }
+    
+    public static void usuarioYaExiste(){
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText("El usuario ya existe");
+        alerta.setContentText("Elija otro nombre de usuario");
+        alerta.showAndWait();
+    }
 }

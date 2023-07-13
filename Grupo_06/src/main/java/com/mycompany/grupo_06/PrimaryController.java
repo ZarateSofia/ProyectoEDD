@@ -22,6 +22,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tdas.ArrayList;
 
@@ -87,36 +88,49 @@ public class PrimaryController implements Initializable{
     @FXML
     private void crearUsuario(ActionEvent event) {
         VBox root=new VBox();
+        
+        HBox hBoton=new HBox();
+        Button bVolver=new Button("Volver");
+        bVolver.setPrefSize(101, 35);
+        bVolver.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
+        hBoton.setAlignment(Pos.CENTER);
+        hBoton.getChildren().add(bVolver);
+
         Label lbCuenta=new Label("Crear Cuenta");
         lbCuenta.setAlignment(Pos.CENTER);
-        lbCuenta.setStyle("-fx-font-weight: bold; -fx-font-size:36; -fx-font-family: Segoe UI Black; -fx-text-fill: black ");
+        lbCuenta.setStyle("-fx-font-weight: bold; -fx-font-size:34; -fx-font-family: Segoe UI Black; -fx-text-fill: black ");
+        
         TextField nombre=new TextField();
         nombre.setPromptText("Nombre");
         nombre.setAlignment(Pos.CENTER);
         nombre.setPrefSize(183, 35);
         nombre.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
+        
         TextField apellido=new TextField();
         apellido.setPromptText("Apellido");
         apellido.setAlignment(Pos.CENTER);
         apellido.setPrefSize(183, 35);
         apellido.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
+        
         TextField usuario=new TextField();
         usuario.setPromptText("Usuario");
         usuario.setAlignment(Pos.CENTER);
         usuario.setPrefSize(183, 35);
         usuario.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
+        
         TextField contra=new TextField();
         contra.setPromptText("Clave");
         contra.setAlignment(Pos.CENTER);
         contra.setPrefSize(183, 35);
         contra.setStyle("-fx-font-size:13; -fx-font-family: System; -fx-text-fill: black; -fx-background-color: white; -fx-background-radius:40");
+        
         Button crear=new Button("Crear cuenta");
         crear.setAlignment(Pos.CENTER);
         crear.setPrefSize(101, 35);
         crear.setStyle("-fx-font-weight: bold; -fx-font-size:13; -fx-font-family: System; -fx-text-fill: white; -fx-background-color: black; -fx-background-radius:70");
 
-        root.getChildren().addAll(lbCuenta,nombre,apellido,usuario,contra,crear);
-        root.setSpacing(25);
+        root.getChildren().addAll(lbCuenta,nombre,apellido,usuario,contra,crear,hBoton);
+        root.setSpacing(20);
         root.setAlignment(Pos.CENTER);
         root.setFillWidth(false);
         root.setPrefSize(473, 372);
@@ -139,19 +153,24 @@ public class PrimaryController implements Initializable{
         crear.addEventHandler(ActionEvent.ACTION, (ActionEvent t) -> {
             if(nombre.getText().equals("") || apellido.getText().equals("")|| usuario.getText().equals("")|| contra.getText().equals("")){
                 Alerta.hayAlgoVacio();
-            } else {
+            }else if(Usuario.validarExistencia(listaUsuarios, usuario.getText())){
+                Alerta.usuarioYaExiste();
+                
+            }else{
                 Usuario u=new Usuario(nombre.getText(),apellido.getText(),usuario.getText(),contra.getText());
-                try(BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/files/Usuarios.txt",true))){
-                    String cadena="\n"+nombre.getText()+","+apellido.getText()+","+usuario.getText()+","+contra.getText();
-                    bw.write(cadena);
-                    listaUsuarios.addLast(u);
-                    Usuario.escribirLista(listaUsuarios);
-                }catch(Exception e){
-                    System.out.println(e.getMessage());
-                }
+                listaUsuarios.addLast(u);
+                Usuario.escribirLista(listaUsuarios);
                 Alerta.creacionCuentaExitoso();
                 App.scene.setRoot(panel);
 
+            }
+        });
+        
+        bVolver.addEventHandler(ActionEvent.ACTION, (ActionEvent t) -> {
+            try {
+                App.setRoot("primary");
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
         });
 
