@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -331,6 +333,24 @@ public class SecondaryController implements Initializable{
         panelEmoji.getChildren().add(ivCejas);
         
         
+//        EventHandler<ZoomEvent> evento = new EventHandler(){
+//            @Override
+//            public void handle(Event t) {
+//                ivCuerpo.setFitHeight(t.getZoomFactor());
+//            }   
+//        };
+//        ivCuerpo.setOnZoom(evento);
+        
+//        ivOjos.setOnZoom(e -> System.out.println("Zoom!"));
+//
+//        Point2D screenCoords = panelEmoji.localToScreen(300, 300);
+//        ZoomEvent evt = new ZoomEvent(
+//                ZoomEvent.ZOOM,
+//                300, 300,
+//                300, 300,
+//                false,false,false,false,false, false, 5.0,5.0, null
+//        );
+//        ZoomEvent.fireEvent(ivOjos, evt);
     }
     
     public void mostrarPartes(LCD<ImageView> lista, int indice, HBox hb, int parte){
@@ -525,12 +545,12 @@ public class SecondaryController implements Initializable{
         mostrarPartes(Ojos, indiceOjos, listado,3);
     }  
     
-    @FXML
-    private void switchToPrimary() throws IOException {
-        //App.setRoot("primary");
-        LCD<Integer> lista = new LCD();
-        lista.get(-1);
-    }
+//    @FXML
+//    private void switchToPrimary() throws IOException {
+//        //App.setRoot("primary");
+//        LCD<Integer> lista = new LCD();
+//        lista.get(-1);
+//    }
     
     @FXML
     private void agregarComponentes() throws IOException{
