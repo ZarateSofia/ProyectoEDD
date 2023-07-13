@@ -46,4 +46,11 @@ public class Alerta {
         alerta.setContentText("Elija otro nombre de usuario");
         alerta.showAndWait();
     }
+    public static void imposibleEliminar(){
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText("Error al eliminar el componente");
+        alerta.setContentText("Minimo debe existir 5 elementos");
+        alerta.showAndWait();
+    }
 }

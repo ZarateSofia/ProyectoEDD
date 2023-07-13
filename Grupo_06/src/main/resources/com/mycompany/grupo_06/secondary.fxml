@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="500.0" prefWidth="751.0" spacing="10.0" style="-fx-background-color: #fbf2ac;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
+<VBox prefHeight="500.0" prefWidth="751.0" spacing="10.0" style="-fx-background-color: #fbf2ac;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.grupo_06.SecondaryController">
    <children>
       <VBox alignment="CENTER_RIGHT" fillWidth="false" prefHeight="22.0" prefWidth="746.0">
          <children>
@@ -38,6 +38,11 @@
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#agregarComponentes" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="+Agregar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#agregarComponentes" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: black; -fx-background-radius: 70;" text="-Eliminar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

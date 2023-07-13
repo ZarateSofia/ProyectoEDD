@@ -1,5 +1,6 @@
 package com.mycompany.grupo_06;
 
+import Modelos.Alerta;
 import Modelos.Emoji;
 import Modelos.Seleccionador;
 import Modelos.Usuario;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -73,7 +75,7 @@ public class SecondaryController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        emoji = BienvenidaController.devolverEmoji();        
+        emoji = BienvenidaController.devolverEmoji();
         
         Caras = cargarCaras();
         Bocas = cargarBocas();
@@ -123,10 +125,15 @@ public class SecondaryController implements Initializable{
         });
         
         btEliminarElemento.addEventHandler(ActionEvent.ACTION, (ActionEvent e)-> {
-            lista.remove(indice);
-            actualizarIndice(indice);
-            listado.getChildren().clear();
-            mostrarPartes(lista, indice, hb, parte);
+            if(lista.size() == 5){
+                Alerta.imposibleEliminar();
+            }else{
+                lista.remove(indice);
+                actualizarIndice(indice);
+                listado.getChildren().clear();
+                mostrarPartes(lista, indice, hb, parte);
+            }
+            
         });
     }
 
@@ -413,7 +420,7 @@ public class SecondaryController implements Initializable{
         
      
     }
-    
+  
     public void mostrarPartes(LCD<ImageView> lista, int indice, HBox hb, int parte){
        listado.getChildren().clear();
         if(indice == lista.size()){
@@ -606,12 +613,6 @@ public class SecondaryController implements Initializable{
         mostrarPartes(Ojos, indiceOjos, listado,3);
     }  
     
-//    @FXML
-//    private void switchToPrimary() throws IOException {
-//        //App.setRoot("primary");
-//        LCD<Integer> lista = new LCD();
-//        lista.get(-1);
-//    }
     
     @FXML
     private void agregarComponentes() throws IOException{
