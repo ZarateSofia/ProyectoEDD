@@ -348,6 +348,7 @@ public class SecondaryController implements Initializable{
                 }
                 ivCuerpo.setScaleX(ivCuerpo.getScaleX() * zoomFactor);
                 ivCuerpo.setScaleY(ivCuerpo.getScaleY() * zoomFactor);
+                
                 event.consume();
             }
         });
