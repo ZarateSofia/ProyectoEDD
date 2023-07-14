@@ -120,7 +120,6 @@ public class LCD<E> implements List<E> {
         return node.getNext().getContent();
     }
     
-    //Arreglar este algortimo
     @Override
     public E remove(int index) {
         

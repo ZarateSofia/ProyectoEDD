@@ -5,10 +5,6 @@
 package Modelos;
 
 import java.io.Serializable;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.UUID;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

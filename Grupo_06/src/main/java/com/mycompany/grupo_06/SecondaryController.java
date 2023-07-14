@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -304,7 +303,6 @@ public class SecondaryController implements Initializable{
             
             @Override
             public void handle(Event t) {
-                System.out.println("UwU");
                 int length = lista.size();
                 int x = alterarIndice(indice, pos, length, parte);
                 hb.getChildren().clear();

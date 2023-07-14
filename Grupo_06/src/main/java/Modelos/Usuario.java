@@ -13,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 import tdas.ArrayList;
 
@@ -27,7 +26,6 @@ public class Usuario implements Serializable{
     private String usuario;
     private String clave;
     private Map<UUID, Emoji> listaEmojis;
-    private String mapa;
 
     public Usuario(String nombre, String apellido,String usuario, String clave) {
         this.nombre=nombre;

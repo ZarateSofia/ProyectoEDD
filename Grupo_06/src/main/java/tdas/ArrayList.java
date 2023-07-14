@@ -21,15 +21,6 @@ public class ArrayList<E> implements List<E>, Serializable {
         elements = (E[]) new Object[MAX_SIZE];
         effectiveSize = 0;
     }
-
-    @Override
-    public String toString(){
-        String cadena=" ";
-        for (int i=0; i<effectiveSize;i++){
-            cadena=cadena+elements[i]+",";
-        }
-        return cadena;
-    }
     
     @Override
     public int size() {
@@ -88,11 +79,11 @@ public class ArrayList<E> implements List<E>, Serializable {
 
     private void addCapacity() {
         MAX_SIZE = MAX_SIZE * 2;
-        E[] newElements = (E[]) new Object[MAX_SIZE];
+        E[] ne = (E[]) new Object[MAX_SIZE];
         for (int i = 0; i < elements.length; i++) {
-            newElements[i] = elements[i];
+            ne[i] = elements[i];
         }
-        this.elements = newElements;
+        this.elements = ne;
     }
 
     private boolean isFull() {
@@ -117,15 +108,5 @@ public class ArrayList<E> implements List<E>, Serializable {
         };
         return it;
     }
-    
-//    public boolean contains(E e){
-//        for (int i=0; i<effectiveSize;i++){
-//            if(e.equals(elements[i])){
-//                return true;
-//            }else{
-//                return false;
-//            }
-//        }
-//        return false;
-//    }
+
 }
