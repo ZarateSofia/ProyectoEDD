@@ -60,12 +60,12 @@ public class Seleccionador {
      }
      
      public Emoji cargarEmoji(){
-         Emoji em = new Emoji();
+         Emoji em = null;
          fileChooser.setTitle("Seleccionar una proyecto Emoji");
          ExtensionFilter extensionFilter = new ExtensionFilter("Archivos SER", "*.ser");
          fileChooser.getExtensionFilters().add(extensionFilter);
          
-         String selectedFile = fileChooser.showOpenDialog(App.getScene().getWindow()).toString();
+         File selectedFile = fileChooser.showOpenDialog(App.getScene().getWindow());
          
          if(selectedFile != null){
              try(ObjectInputStream objinput=new ObjectInputStream(new FileInputStream(selectedFile));){

@@ -13,10 +13,10 @@ import java.util.NoSuchElementException;
  */
 public class LCD<E> implements List<E> {
     
-    private Node<E> last;
+    private Node<E> first;
 
     public LCD() {
-        this.last = null;
+        this.first = null;
     }
 
     @Override
@@ -28,15 +28,15 @@ public class LCD<E> implements List<E> {
         Node<E> nodo = new Node(element);
         
         if(this.isEmpty()){
-            last = nodo;
-            last.setNext(nodo);
-            last.setPrev(nodo);
+            first = nodo;
+            first.setNext(nodo);
+            first.setPrev(nodo);
         } else{
-            Node<E> lastNode = last.getPrev();
-            nodo.setNext(last);
+            Node<E> lastNode = first.getPrev();
+            nodo.setNext(first);
             nodo.setPrev(lastNode);
             lastNode.setNext(nodo);
-            last.setPrev(nodo);
+            first.setPrev(nodo);
             
         }
         
@@ -55,7 +55,7 @@ public class LCD<E> implements List<E> {
 
     @Override
     public boolean isEmpty() {
-        return last == null;
+        return first == null;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class LCD<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
         
-        Node<E> node = last;
+        Node<E> node = first;
 
         int contador = 0;
         while(contador != index){
@@ -87,7 +87,7 @@ public class LCD<E> implements List<E> {
     }
     
     public E getNextElement(int index){
-        Node<E> node = last;
+        Node<E> node = first;
         for(int i=0; i<index;i++){
             node = node.getNext();
         }
@@ -95,7 +95,7 @@ public class LCD<E> implements List<E> {
     }
     
     public E getPrevElement(int index){
-        Node<E> node = last;
+        Node<E> node = first;
         for(int i=0; i<index;i++){
             node = node.getNext();
         }
@@ -103,7 +103,7 @@ public class LCD<E> implements List<E> {
     }
     
     public E getPrevTooElement(int index){
-        Node<E> node = last;
+        Node<E> node = first;
         for(int i=0; i<index;i++){
             node = node.getNext();
         }
@@ -112,7 +112,7 @@ public class LCD<E> implements List<E> {
     }
     
     public E getNextTooElement(int index){
-        Node<E> node = last;
+        Node<E> node = first;
         for(int i=0; i<index;i++){
             node = node.getNext();
         }
@@ -130,25 +130,25 @@ public class LCD<E> implements List<E> {
         E elemento;
         
         if(index == 0){
-            if(last.getNext() == null){
-                elemento = last.getContent();
-                last = null;
+            if(first.getNext() == null){
+                elemento = first.getContent();
+                first = null;
             }else{
-                Node<E> lastNode = last.getPrev();
-                Node<E> nextNode = last.getNext();
+                Node<E> lastNode = first.getPrev();
+                Node<E> nextNode = first.getNext();
                 
-                elemento = last.getContent();
+                elemento = first.getContent();
                 nextNode.setPrev(lastNode);
                 lastNode.setNext(nextNode);
-                last = nextNode;
+                first = nextNode;
             }
         } else if(index > 0){
-            Node<E> nodoEliminar = last;
+            Node<E> nodoEliminar = first;
             int cont = 0;
             while(cont < index){
                 nodoEliminar = nodoEliminar.getNext();
                 cont++;
-                if(nodoEliminar == last){
+                if(nodoEliminar == first){
                     return null; //Indice Invalido
                 }
             }
@@ -171,7 +171,7 @@ public class LCD<E> implements List<E> {
     
     public int indexOf(E element){
         int i = 0;
-        Node<E> node = last;
+        Node<E> node = first;
         for(E e: this){
             if(e.equals(node.getContent())){
                 return i;
@@ -186,7 +186,7 @@ public class LCD<E> implements List<E> {
     @Override
     public Iterator<E> iterator() {
         Iterator<E> it = new Iterator<E>(){
-            Node<E> cursor = last;
+            Node<E> cursor = first;
             
             @Override
             public boolean hasNext() { 
@@ -201,7 +201,7 @@ public class LCD<E> implements List<E> {
                 
                 E e = cursor.getContent();
                 cursor = cursor.getNext();
-                if(cursor == last){
+                if(cursor == first){
                     cursor = null;
                 }
                 

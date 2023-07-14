@@ -490,7 +490,6 @@ public class SecondaryController implements Initializable{
         indice++;
         hb.getChildren().clear();
         mostrarPartes(lista, indice, hb, parte);
-        System.out.println("NextElement: "+ indiceCara);
 
     }
     
@@ -498,7 +497,6 @@ public class SecondaryController implements Initializable{
         indice--;
         hb.getChildren().clear();
         mostrarPartes(lista, indice, hb, parte);
-        System.out.println("PrevElement: " + indiceCara);
     }
     
     private int indexOfPart(String parte, LCD<ImageView> listaImagenes){

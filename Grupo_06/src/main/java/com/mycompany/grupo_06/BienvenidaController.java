@@ -143,7 +143,10 @@ public class BienvenidaController implements Initializable {
     private void cargarEmoji() throws IOException{
         Seleccionador sc = new Seleccionador();
         emoji = sc.cargarEmoji();
-        App.setRoot("secondary");
+        if(emoji != null){
+            App.setRoot("secondary");
+        }
+        
     }
     
     public static Emoji devolverEmoji(){
